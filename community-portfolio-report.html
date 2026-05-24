@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armchair Insider Lounge — Community Portfolio Report</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #FBF5E6;
+    --ink: #1A1714;
+    --ink-mid: #3D3630;
+    --ink-light: #7A6F65;
+    --surface: #FDFCF9;
+    --surface-2: #F5F0E8;
+    --surface-3: #EDE5D4;
+    --border: #E2D9C8;
+    --green: #2E7D5A;
+    --green-light: #E8F5EF;
+    --amber: #B45309;
+    --amber-light: #FEF3C7;
+    --red: #9B1C1C;
+    --red-light: #FEE2E2;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(26,23,20,0.07);
+    --shadow-md: 0 6px 24px rgba(26,23,20,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    background-image: 
+      radial-gradient(ellipse 80% 60% at 60% 120%, rgba(201,168,76,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 0% 0%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    padding: 64px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      90deg, transparent, transparent 60px, rgba(201,168,76,0.03) 60px, rgba(201,168,76,0.03) 61px
+    ), repeating-linear-gradient(
+      0deg, transparent, transparent 60px, rgba(201,168,76,0.03) 60px, rgba(201,168,76,0.03) 61px
+    );
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero-badge::before { content: '◆'; font-size: 8px; }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 20px;
+  }
+  .hero-desc {
+    max-width: 560px;
+    margin: 0 auto 24px;
+    color: rgba(255,255,255,0.70);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .hero-disclaimer {
+    display: inline-block;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.45);
+    font-size: 12px;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 48px 0; }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .section-subtitle {
+    color: var(--ink-light);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--border) 40%, transparent 100%);
+    margin: 0 0 28px;
+    width: 120px;
+  }
+
+  /* ── KEY INSIGHT CARDS ── */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 0;
+  }
+  .insight-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .insight-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .insight-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .insight-label {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .insight-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .insight-value.gold { color: var(--gold); }
+  .insight-value.green { color: var(--green); }
+  .insight-meta {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  /* ── CHARTS ── */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    gap: 20px;
+  }
+  @media (max-width: 600px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+  .chart-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card-full {
+    grid-column: 1 / -1;
+  }
+  .chart-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .chart-sub {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 20px;
+    font-family: 'DM Mono', monospace;
+  }
+  .chart-wrap { position: relative; }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 13.5px;
+  }
+  thead tr {
+    background: var(--ink);
+  }
+  thead th {
+    padding: 13px 14px;
+    text-align: left;
+    color: rgba(255,255,255,0.75);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+  thead th:hover { color: var(--gold-light); }
+  thead th.sort-asc::after { content: ' ↑'; color: var(--gold-light); }
+  thead th.sort-desc::after { content: ' ↓'; color: var(--gold-light); }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--gold-pale); }
+  tbody tr.top5 { background: var(--gold-pale); }
+  tbody tr.top5:hover { background: #F3E9CE; }
+  td { padding: 11px 14px; vertical-align: middle; }
+  .rank { 
+    font-family: 'DM Mono', monospace; 
+    font-size: 12px; 
+    color: var(--ink-light); 
+    width: 36px;
+  }
+  .top5 .rank { color: var(--gold); font-weight: 700; }
+  .ticker-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+  .top5 .ticker-badge { background: var(--gold); color: var(--ink); }
+  .yield-val { 
+    font-family: 'DM Mono', monospace; 
+    font-weight: 600; 
+    color: var(--green); 
+    font-size: 13px;
+  }
+  .yield-high { color: var(--amber); }
+  .yield-extreme {
+    color: var(--red);
+    position: relative;
+  }
+  .tag-high {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--amber);
+    border: 1px solid #FCD34D;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 5px;
+    vertical-align: middle;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .alloc-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-mid);
+  }
+  .type-pill {
+    display: inline-block;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    color: var(--ink-mid);
+    white-space: nowrap;
+  }
+  .holdings-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .holdings-num { font-family: 'DM Mono', monospace; font-size: 13px; min-width: 20px; }
+  .holdings-bar {
+    height: 6px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 3px;
+    min-width: 4px;
+    transition: width 0.3s;
+  }
+  .name-cell { 
+    color: var(--ink-mid); 
+    max-width: 220px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+  }
+
+  /* Table controls */
+  .table-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-box {
+    flex: 1;
+    min-width: 180px;
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--gold); }
+  .filter-btn {
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    cursor: pointer;
+    color: var(--ink-mid);
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+  .filter-btn:hover, .filter-btn.active { 
+    background: var(--ink); 
+    color: var(--gold-light); 
+    border-color: var(--ink);
+  }
+  .row-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-left: auto;
+  }
+
+  /* ── ANALYSIS ── */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .analysis-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .analysis-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .analysis-block h3 .icon {
+    width: 28px; height: 28px;
+    background: var(--gold-pale);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .analysis-block p {
+    color: var(--ink-mid);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .callout {
+    background: var(--amber-light);
+    border-left: 3px solid var(--amber);
+    padding: 14px 16px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--ink-mid);
+  }
+  .callout strong { color: var(--amber); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.40);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    line-height: 2;
+  }
+  footer span { color: rgba(201,168,76,0.7); }
+
+  /* ── SCATTER CANVAS ── */
+  #scatterChart { max-height: 340px; }
+
+  @media (max-width: 768px) {
+    .hero { padding: 48px 20px 40px; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .insights-grid { grid-template-columns: repeat(2, 1fr); }
+    .name-cell { max-width: 140px; }
+  }
+  @media (max-width: 480px) {
+    .insights-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Armchair Insider Lounge</div>
+  <h1>Most Popular <em>Community</em><br>Portfolio Positions</h1>
+  <p class="hero-sub">April – May 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
+  <p class="hero-desc">
+    A snapshot of the 100 most commonly held positions shared by members across our Buy, Sell, and Community Portfolio sections — ranked by member holdings and enriched with yield and asset class data.
+  </p>
+  <span class="hero-disclaimer">⚠ For community discussion only. Not financial advice.</span>
+</section>
+
+<!-- KEY INSIGHTS -->
+<div class="container">
+  <section class="section">
+    <p class="section-subtitle" style="margin-bottom:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);">◆ At a Glance</p>
+    <h2 class="section-title">Key Insights</h2>
+    <div class="divider"></div>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-label">Most Held Ticker</div>
+        <div class="insight-value gold">PFFA</div>
+        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>15 member holdings</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Highest Yield</div>
+        <div class="insight-value green">68.45%</div>
+        <div class="insight-meta">MSTY — YieldMax MSTR Option Income Strategy ETF</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Highest Avg Allocation</div>
+        <div class="insight-value gold">6.42%</div>
+        <div class="insight-meta">GPIQ — Goldman Sachs Nasdaq-100 Premium Income ETF</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Most Common Type</div>
+        <div class="insight-value" style="font-size:20px;">BDC</div>
+        <div class="insight-meta">Business Development Companies<br>Most represented asset class</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Tickers Tracked</div>
+        <div class="insight-value gold">100</div>
+        <div class="insight-meta">Across 20+ distinct asset types and categories</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CHARTS -->
+<div style="background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 0;">
+<div class="container">
+  <p class="section-subtitle" style="margin-bottom:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);">◆ Visual Analytics</p>
+  <h2 class="section-title">Portfolio Breakdown</h2>
+  <div class="divider"></div>
+  <div class="charts-grid">
+
+    <div class="chart-card">
+      <div class="chart-title">Top 10 by Member Holdings</div>
+      <div class="chart-sub">Number of members holding each ticker</div>
+      <div class="chart-wrap"><canvas id="holdingsChart" height="280"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Top 10 by Yield</div>
+      <div class="chart-sub">Annualized distribution yield (%)</div>
+      <div class="chart-wrap"><canvas id="yieldChart" height="280"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Asset Type Distribution</div>
+      <div class="chart-sub">Share of tickers by category</div>
+      <div class="chart-wrap" style="max-width:420px; margin:0 auto;"><canvas id="pieChart" height="260"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Yield vs. Average Allocation</div>
+      <div class="chart-sub">Bubble size = member holdings · Outlier yields highlighted</div>
+      <div class="chart-wrap"><canvas id="scatterChart" height="300"></canvas></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- MAIN TABLE -->
+<div class="container">
+  <section class="section">
+    <p class="section-subtitle" style="margin-bottom:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);">◆ Full Rankings</p>
+    <h2 class="section-title">All 100 Positions</h2>
+    <div class="divider"></div>
+
+    <div class="table-controls">
+      <input type="text" class="search-box" id="searchBox" placeholder="Search ticker or name…" oninput="filterTable()">
+      <button class="filter-btn" id="btnAll" onclick="setFilter('all')" data-filter="all">All</button>
+      <button class="filter-btn" id="btnBDC" onclick="setFilter('BDC')" data-filter="BDC">BDC</button>
+      <button class="filter-btn" id="btnCEF" onclick="setFilter('CEF')" data-filter="CEF">CEF</button>
+      <button class="filter-btn" id="btnETF" onclick="setFilter('ETF')" data-filter="ETF">ETF</button>
+      <button class="filter-btn" id="btnHiYield" onclick="setFilter('hiyield')" data-filter="hiyield">Yield &gt;20%</button>
+      <span class="row-count" id="rowCount">100 positions</span>
+    </div>
+
+    <div class="table-wrap">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)" data-col="0">#</th>
+            <th onclick="sortTable(1)" data-col="1">Ticker</th>
+            <th onclick="sortTable(2)" data-col="2">Name</th>
+            <th onclick="sortTable(3)" data-col="3">Holdings</th>
+            <th onclick="sortTable(4)" data-col="4">Avg Alloc</th>
+            <th onclick="sortTable(5)" data-col="5">Yield</th>
+            <th onclick="sortTable(6)" data-col="6">Type</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- ANALYSIS -->
+<div style="background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 0;">
+<div class="container">
+  <p class="section-subtitle" style="margin-bottom:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);">◆ Community Observations</p>
+  <h2 class="section-title">Portfolio Analysis</h2>
+  <div class="divider"></div>
+  <div class="analysis-grid">
+
+    <div class="analysis-block">
+      <h3><span class="icon">📊</span> Most Popular Positions</h3>
+      <p>PFFA leads with 15 member holdings, followed by FSCO at 13. A strong cluster of tickers sit at 10–11 holdings each: QQQI, KGLD, CEFS, BTCI, NIHI, ASGI, and ADX. The top 10 collectively reflect strong community preference for income-focused vehicles across ETFs, CEFs, and BDCs.</p>
+    </div>
+
+    <div class="analysis-block">
+      <h3><span class="icon">🏗️</span> Dominant Asset Classes</h3>
+      <p>BDCs remain the most represented category by count, with tickers including ARCC, MAIN, CSWC, HTGC, and BXSL. Covered Call ETFs — particularly the NEOS suite — are widely held, reflecting community interest in option-income strategies layered on major indices, assets, and international equities.</p>
+    </div>
+
+    <div class="analysis-block">
+      <h3><span class="icon">📈</span> High-Yield Positions</h3>
+      <p>Several tickers carry exceptional yields: MSTY at 68.45%, ULTY at 65.90%, CHPY at 45.62%, BLOX at 36%, KSLV at 27.54%, and QDTE at 28.57%. These are primarily YieldMax and option-overlay products tied to volatile underlying assets like Bitcoin and semiconductors.</p>
+      <div class="callout"><strong>Note:</strong> Elevated distribution yields often reflect return of capital or options premium capture, not organic income growth. These require closer individual evaluation.</div>
+    </div>
+
+    <div class="analysis-block">
+      <h3><span class="icon">🔍</span> Diversification Observations</h3>
+      <p>The community shows healthy spread across credit (PIMCO CEFs), infrastructure (UTF, ASGI), real estate (RLTY, IYRI), CLOs (OXLC, ECC), and international equity (IDVO, NIHI). New additions such as AGNC and GPIQ highlight growing interest in mortgage REITs and Nasdaq-100 premium income products.</p>
+    </div>
+
+    <div class="analysis-block">
+      <h3><span class="icon">⚖️</span> Yield ≠ Quality</h3>
+      <p>As always, a higher yield does not automatically imply a better or safer investment. Distribution sustainability, NAV erosion, leverage levels, and tax treatment vary significantly across these structures. Members are encouraged to research individual holdings thoroughly before acting on any information discussed in the community.</p>
+    </div>
+
+    <div class="analysis-block">
+      <h3><span class="icon">💡</span> Allocation Signals</h3>
+      <p>Average allocations remain modest for most tickers, typically under 4%, suggesting members generally practice position-sizing discipline. GPIQ stands out with the highest average allocation at 6.42%, with GPIX and QQQI also above 6%, reflecting member confidence in broad-market and Nasdaq covered call strategies as core holdings.</p>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; April – May 2026
+  </div>
+  <div>Tickers shown are compatible with Seeking Alpha. Tickers for other websites and brokerages may vary.</div>
+  <div>For discussion and educational purposes only. Not investment advice.</div>
+</footer>
+
+<script>
+const DATA = [
+  {rank:1,ticker:"PFFA",name:"Virtus InfraCap U.S. Preferred Stock ETF",holdings:15,alloc:3.14,yield:9.67,type:"Preferred Stock ETF"},
+  {rank:2,ticker:"FSCO",name:"FS Credit Opportunities Corp.",holdings:13,alloc:2.70,yield:13.83,type:"Credit CEF"},
+  {rank:3,ticker:"QQQI",name:"NEOS Nasdaq-100 High Income ETF",holdings:11,alloc:6.00,yield:14.11,type:"Covered Call ETF"},
+  {rank:4,ticker:"KGLD",name:"Kurv Gold Enhanced Income ETF",holdings:11,alloc:2.10,yield:17.49,type:"Gold Income ETF"},
+  {rank:5,ticker:"CEFS",name:"Saba Closed-End Funds ETF",holdings:11,alloc:3.84,yield:7.26,type:"CEF ETF"},
+  {rank:6,ticker:"BTCI",name:"NEOS Bitcoin High Income ETF",holdings:11,alloc:2.11,yield:26.65,type:"Crypto Income ETF"},
+  {rank:7,ticker:"NIHI",name:"NEOS MSCI EAFE High Income ETF",holdings:10,alloc:2.91,yield:10.17,type:"Covered Call ETF"},
+  {rank:8,ticker:"ASGI",name:"abrdn Global Infrastructure Income Fund",holdings:10,alloc:3.95,yield:11.47,type:"Infrastructure CEF"},
+  {rank:9,ticker:"ADX",name:"Adams Diversified Equity Fund, Inc.",holdings:10,alloc:4.57,yield:7.67,type:"Equity CEF"},
+  {rank:10,ticker:"SPYI",name:"NEOS S&P 500 High Income ETF",holdings:9,alloc:3.53,yield:12.09,type:"Covered Call ETF"},
+  {rank:11,ticker:"PBDC",name:"Putnam BDC Income ETF",holdings:9,alloc:3.12,yield:10.64,type:"BDC ETF"},
+  {rank:12,ticker:"IYRI",name:"NEOS Real Estate High Income ETF",holdings:9,alloc:1.72,yield:11.04,type:"Real Estate Income ETF"},
+  {rank:13,ticker:"IDVO",name:"Amplify CWP International Enhanced Dividend Income ETF",holdings:9,alloc:3.02,yield:5.95,type:"International Dividend ETF"},
+  {rank:14,ticker:"GOF",name:"Guggenheim Strategic Opportunities Fund",holdings:9,alloc:2.63,yield:19.70,type:"Credit CEF"},
+  {rank:15,ticker:"ARCC",name:"Ares Capital Corporation",holdings:9,alloc:3.04,yield:10.33,type:"BDC"},
+  {rank:16,ticker:"UTF",name:"Cohen & Steers Infrastructure Fund Inc.",holdings:8,alloc:1.44,yield:7.34,type:"Infrastructure CEF"},
+  {rank:17,ticker:"PDI",name:"PIMCO Dynamic Income Fund",holdings:8,alloc:3.11,yield:15.93,type:"Credit CEF"},
+  {rank:18,ticker:"MLPI",name:"NEOS MLP & Energy Infrastructure High Income ETF",holdings:8,alloc:3.09,yield:14.72,type:"Energy Infrastructure ETF"},
+  {rank:19,ticker:"KSLV",name:"Kurv Silver Enhanced Income ETF",holdings:8,alloc:2.44,yield:27.54,type:"Gold & Silver Income ETF"},
+  {rank:20,ticker:"GPIX",name:"Goldman Sachs S&P 500 Premium Income ETF",holdings:8,alloc:6.15,yield:8.34,type:"Covered Call ETF"},
+  {rank:21,ticker:"RLTY",name:"Cohen & Steers Real Estate Opportunities & Income Fund",holdings:7,alloc:1.22,yield:8.39,type:"Real Estate CEF"},
+  {rank:22,ticker:"PTY",name:"PIMCO Corporate & Income Opportunity Fund",holdings:7,alloc:1.98,yield:12.09,type:"Credit CEF"},
+  {rank:23,ticker:"CSWC",name:"Capital Southwest Corporation",holdings:7,alloc:2.05,yield:11.25,type:"BDC"},
+  {rank:24,ticker:"BXSL",name:"Blackstone Secured Lending Fund",holdings:7,alloc:1.80,yield:13.20,type:"BDC"},
+  {rank:25,ticker:"UTG",name:"Reaves Utility Income Fund",holdings:6,alloc:2.23,yield:5.64,type:"Utility CEF"},
+  {rank:26,ticker:"NML",name:"Neuberger Energy Infra and Income Fund Inc.",holdings:6,alloc:2.18,yield:8.05,type:"Energy Infrastructure CEF"},
+  {rank:27,ticker:"KQQQ",name:"Kurv Technology Titans Select ETF",holdings:6,alloc:1.69,yield:14.99,type:"Covered Call ETF"},
+  {rank:28,ticker:"KIO",name:"KKR Income Opportunities Fund",holdings:6,alloc:3.11,yield:12.96,type:"High Yield Bond CEF"},
+  {rank:29,ticker:"IAUI",name:"NEOS Gold High Income ETF",holdings:6,alloc:1.98,yield:12.27,type:"Gold Income ETF"},
+  {rank:30,ticker:"HTGC",name:"Hercules Capital, Inc.",holdings:6,alloc:2.50,yield:12.26,type:"BDC"},
+  {rank:31,ticker:"BLOX",name:"Amplify Transformational Data Sharing ETF",holdings:6,alloc:2.04,yield:36.00,type:"Crypto Income ETF"},
+  {rank:32,ticker:"QDVO",name:"Amplify CWP Growth & Income ETF",holdings:5,alloc:2.15,yield:11.11,type:"Covered Call ETF"},
+  {rank:33,ticker:"PCN",name:"PIMCO Corporate & Income Strategy Fund",holdings:5,alloc:2.57,yield:11.54,type:"Credit CEF"},
+  {rank:34,ticker:"OBDC",name:"Blue Owl Capital Corporation",holdings:5,alloc:1.39,yield:11.42,type:"BDC"},
+  {rank:35,ticker:"MSTY",name:"YieldMax MSTR Option Income Strategy ETF",holdings:5,alloc:1.22,yield:68.45,type:"Crypto Income ETF"},
+  {rank:36,ticker:"BRW",name:"Saba Capital Income & Opportunities Fund",holdings:5,alloc:1.89,yield:15.11,type:"Multi-Strategy CEF"},
+  {rank:37,ticker:"XFLT",name:"XAI Octagon Floating Rate & Alternative Income Trust",holdings:4,alloc:1.52,yield:14.35,type:"CLO Blend Fund"},
+  {rank:38,ticker:"TRIN",name:"Trinity Capital Inc.",holdings:4,alloc:2.32,yield:12.37,type:"BDC"},
+  {rank:39,ticker:"THQ",name:"abrdn Healthcare Opportunities Fund",holdings:4,alloc:1.16,yield:11.68,type:"Healthcare CEF"},
+  {rank:40,ticker:"RFI",name:"Cohen & Steers Total Return Realty Fund",holdings:4,alloc:2.15,yield:8.52,type:"Real Estate CEF"},
+  {rank:41,ticker:"OXLC",name:"Oxford Lane Capital Corp.",holdings:4,alloc:0.97,yield:24.92,type:"CLO Equity Fund"},
+  {rank:42,ticker:"MAIN",name:"Main Street Capital Corporation",holdings:4,alloc:2.43,yield:8.70,type:"BDC"},
+  {rank:43,ticker:"IWMI",name:"NEOS Russell 2000 High Income ETF",holdings:4,alloc:2.61,yield:14.47,type:"Covered Call ETF"},
+  {rank:44,ticker:"FSK",name:"FS KKR Capital Corp.",holdings:4,alloc:1.43,yield:16.98,type:"BDC"},
+  {rank:45,ticker:"FDUS",name:"Fidus Investment Corporation",holdings:4,alloc:2.03,yield:11.86,type:"BDC"},
+  {rank:46,ticker:"EIC",name:"Eagle Point Income Company Inc.",holdings:4,alloc:1.48,yield:12.38,type:"CLO Debt Fund"},
+  {rank:47,ticker:"DX",name:"Dynex Capital, Inc.",holdings:4,alloc:3.83,yield:16.04,type:"Mortgage REIT"},
+  {rank:48,ticker:"BBDC",name:"Barings BDC, Inc.",holdings:4,alloc:2.09,yield:12.22,type:"BDC"},
+  {rank:49,ticker:"WDI",name:"Western Asset Diversified Income Fund",holdings:3,alloc:3.81,yield:13.26,type:"Bond CEF"},
+  {rank:50,ticker:"ULTY",name:"YieldMax Ultra Option Income Strategy ETF",holdings:3,alloc:0.83,yield:65.90,type:"Covered Call ETF"},
+  {rank:51,ticker:"TYG",name:"Tortoise Energy Infrastructure Corp.",holdings:3,alloc:1.13,yield:12.34,type:"Energy Infrastructure CEF"},
+  {rank:52,ticker:"SPE",name:"Special Opportunities Fund, Inc.",holdings:3,alloc:1.35,yield:9.36,type:"Multi-Strategy CEF"},
+  {rank:53,ticker:"PFN",name:"PIMCO Income Strategy Fund II",holdings:3,alloc:1.86,yield:12.58,type:"Credit CEF"},
+  {rank:54,ticker:"PDO",name:"PIMCO Dynamic Income Opportunities Fund",holdings:3,alloc:3.98,yield:12.06,type:"Credit CEF"},
+  {rank:55,ticker:"PAXS",name:"PIMCO Access Income Fund",holdings:3,alloc:1.48,yield:12.77,type:"Credit CEF"},
+  {rank:56,ticker:"NXG",name:"NXG NextGen Infrastructure Income Fund",holdings:3,alloc:0.60,yield:11.24,type:"Infrastructure CEF"},
+  {rank:57,ticker:"NBXG",name:"Neuberger Berman Next Generation Connectivity Fund",holdings:3,alloc:1.39,yield:9.03,type:"Equity CEF"},
+  {rank:58,ticker:"KYLD",name:"Kurv High Income ETF",holdings:3,alloc:4.15,yield:23.70,type:"Covered Call ETF"},
+  {rank:59,ticker:"KCOP",name:"Kurv Copper Enhanced Income ETF",holdings:3,alloc:2.57,yield:15.84,type:"Commodity Income ETF"},
+  {rank:60,ticker:"JFR",name:"Nuveen Floating Rate Income Fund",holdings:3,alloc:1.44,yield:12.33,type:"Senior Loan Fund"},
+  {rank:61,ticker:"JBBB",name:"Janus Henderson B-BBB CLO ETF",holdings:3,alloc:1.32,yield:7.63,type:"CLO ETF"},
+  {rank:62,ticker:"JAAA",name:"Janus Henderson AAA CLO ETF",holdings:3,alloc:5.39,yield:5.51,type:"AAA CLO ETF"},
+  {rank:63,ticker:"GPIQ",name:"Goldman Sachs Nasdaq-100 Premium Income ETF",holdings:3,alloc:6.42,yield:10.04,type:"Covered Call ETF"},
+  {rank:64,ticker:"FOF",name:"Cohen & Steers Closed-End Opportunity Fund",holdings:3,alloc:0.68,yield:7.53,type:"Multi-Strategy CEF"},
+  {rank:65,ticker:"FEPI",name:"REX FANG & Innovation Equity Premium Income ETF",holdings:3,alloc:2.63,yield:25.21,type:"Covered Call ETF"},
+  {rank:66,ticker:"ETV",name:"Eaton Vance Tax-Managed Buy-Write Opportunities Fund",holdings:3,alloc:0.82,yield:8.18,type:"Covered Call CEF"},
+  {rank:67,ticker:"EMO",name:"ClearBridge Energy Midstream Opportunity Fund Inc.",holdings:3,alloc:1.23,yield:8.31,type:"Energy Infrastructure CEF"},
+  {rank:68,ticker:"ECC",name:"Eagle Point Credit Company Inc.",holdings:3,alloc:1.02,yield:17.82,type:"CLO Equity Fund"},
+  {rank:69,ticker:"DSU",name:"BlackRock Debt Strategies Fund, Inc.",holdings:3,alloc:1.19,yield:12.05,type:"Senior Loan Fund"},
+  {rank:70,ticker:"CLM",name:"Cornerstone Strategic Investment Fund, Inc.",holdings:3,alloc:2.53,yield:19.31,type:"Equity CEF"},
+  {rank:71,ticker:"CHPY",name:"YieldMax Semiconductor Portfolio Option Income ETF",holdings:3,alloc:4.19,yield:45.62,type:"Covered Call ETF"},
+  {rank:72,ticker:"CGBD",name:"Carlyle Secured Lending, Inc.",holdings:3,alloc:2.19,yield:13.11,type:"BDC"},
+  {rank:73,ticker:"CCIF",name:"Carlyle Credit Income Fund",holdings:3,alloc:0.82,yield:22.54,type:"CLO Equity Fund"},
+  {rank:74,ticker:"BIZD",name:"VanEck BDC Income ETF",holdings:3,alloc:1.54,yield:13.92,type:"BDC ETF"},
+  {rank:75,ticker:"BGH",name:"Barings Global Short Duration High Yield Fund",holdings:3,alloc:1.63,yield:12.21,type:"High Yield Bond CEF"},
+  {rank:76,ticker:"BDJ",name:"BlackRock Enhanced Equity Dividend Trust",holdings:3,alloc:1.15,yield:8.09,type:"Equity Income CEF"},
+  {rank:77,ticker:"BCSF",name:"Bain Capital Specialty Finance, Inc.",holdings:3,alloc:2.15,yield:14.53,type:"BDC"},
+  {rank:78,ticker:"AGNC",name:"AGNC Investment Corp.",holdings:3,alloc:4.05,yield:14.10,type:"Mortgage REIT"},
+  {rank:79,ticker:"ADAMH",name:"Adamas Trust, Inc. CAL 30",holdings:3,alloc:2.36,yield:9.60,type:"Baby Bond"},
+  {rank:80,ticker:"TSPY",name:"TappAlpha S&P 500 Growth & Daily Income ETF",holdings:2,alloc:1.34,yield:14.03,type:"Covered Call ETF"},
+  {rank:81,ticker:"TSLX",name:"Sixth Street Specialty Lending, Inc.",holdings:2,alloc:0.70,yield:10.31,type:"BDC"},
+  {rank:82,ticker:"THW",name:"abrdn World Healthcare Fund",holdings:2,alloc:0.85,yield:10.92,type:"Healthcare CEF"},
+  {rank:83,ticker:"SRV",name:"NXG Cushing Midstream Energy Fund",holdings:2,alloc:1.53,yield:15.31,type:"Energy Infrastructure CEF"},
+  {rank:84,ticker:"SOXY",name:"YieldMax Target 12 Semiconductor Option Inc ETF",holdings:2,alloc:0.72,yield:12.00,type:"Covered Call ETF"},
+  {rank:85,ticker:"RVT",name:"Royce Small-Cap Trust Inc.",holdings:2,alloc:2.75,yield:6.55,type:"Equity CEF"},
+  {rank:86,ticker:"QDTE",name:"Roundhill Innovation-100 0DTE Covered Call Strategy ETF",holdings:2,alloc:4.98,yield:28.57,type:"Covered Call ETF"},
+  {rank:87,ticker:"PGZ",name:"Principal Real Estate Income Fund",holdings:2,alloc:1.70,yield:12.91,type:"Real Estate CEF"},
+  {rank:88,ticker:"OVL",name:"Overlay Shares Large Cap Equity ETF",holdings:2,alloc:0.59,yield:5.33,type:"Broad Market ETF"},
+  {rank:89,ticker:"OTF",name:"Blue Owl Technology Finance Corp.",holdings:2,alloc:1.55,yield:13.17,type:"BDC"},
+  {rank:90,ticker:"OCCI",name:"OFS Credit Company, Inc.",holdings:2,alloc:0.49,yield:18.35,type:"CLO Equity Fund"},
+  {rank:91,ticker:"NPFD",name:"Nuveen Preferred & Income Term Fund",holdings:2,alloc:1.28,yield:9.99,type:"Preferred Securities CEF"},
+  {rank:92,ticker:"NFJ",name:"Virtus Dividend, Interest & Premium Strategy Fund",holdings:2,alloc:0.84,yield:8.37,type:"Covered Call CEF"},
+  {rank:93,ticker:"MSFY",name:"Kurv Yield Premium Strategy Microsoft MSFT ETF",holdings:2,alloc:1.15,yield:13.19,type:"Covered Call ETF"},
+  {rank:94,ticker:"MSDL",name:"Morgan Stanley Direct Lending Fund",holdings:2,alloc:1.13,yield:11.93,type:"BDC"},
+  {rank:95,ticker:"MFIC",name:"MidCap Financial Investment Corporation",holdings:2,alloc:2.03,yield:11.70,type:"BDC"},
+  {rank:96,ticker:"MEGI",name:"NYLI CBRE Global Infrastructure Megatrends Term Fund",holdings:2,alloc:0.88,yield:9.77,type:"Infrastructure CEF"},
+  {rank:97,ticker:"KBDC",name:"Kayne Anderson BDC, Inc.",holdings:2,alloc:1.62,yield:10.97,type:"BDC"},
+  {rank:98,ticker:"ISD",name:"PGIM High Yield Bond Fund, Inc.",holdings:2,alloc:1.03,yield:9.74,type:"High Yield Bond CEF"},
+  {rank:99,ticker:"HTD",name:"John Hancock Tax-Advantaged Dividend Income Fund",holdings:2,alloc:0.41,yield:7.45,type:"Dividend Income CEF"},
+  {rank:100,ticker:"GHY",name:"PGIM Global High Yield Fund, Inc.",holdings:2,alloc:0.80,yield:10.55,type:"High Yield Bond CEF"},
+];
+
+// ── TABLE ──
+let sortCol = 0, sortDir = 1;
+let currentFilter = 'all';
+
+function yieldClass(y) {
+  if (y >= 50) return 'yield-extreme';
+  if (y >= 20) return 'yield-high';
+  return '';
+}
+function yieldTag(y) {
+  if (y >= 50) return '<span class="tag-high">VERY HIGH</span>';
+  if (y >= 20) return '<span class="tag-high">HIGH</span>';
+  return '';
+}
+
+function renderTable(rows) {
+  const maxH = Math.max(...DATA.map(d=>d.holdings));
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = rows.map(d => `
+    <tr class="${d.rank<=5?'top5':''}">
+      <td class="rank">${d.rank}</td>
+      <td><span class="ticker-badge">${d.ticker}</span></td>
+      <td class="name-cell" title="${d.name}">${d.name}</td>
+      <td>
+        <div class="holdings-bar-wrap">
+          <span class="holdings-num">${d.holdings}</span>
+          <div class="holdings-bar" style="width:${Math.round(d.holdings/maxH*80)}px"></div>
+        </div>
+      </td>
+      <td><span class="alloc-val">${d.alloc.toFixed(2)}%</span></td>
+      <td><span class="yield-val ${yieldClass(d.yield)}">${d.yield.toFixed(2)}%</span>${yieldTag(d.yield)}</td>
+      <td><span class="type-pill">${d.type}</span></td>
+    </tr>
+  `).join('');
+  document.getElementById('rowCount').textContent = `${rows.length} position${rows.length!==1?'s':''}`;
+}
+
+function getFilteredData() {
+  let rows = [...DATA];
+  const q = document.getElementById('searchBox').value.toLowerCase().trim();
+  if (q) rows = rows.filter(d => d.ticker.toLowerCase().includes(q) || d.name.toLowerCase().includes(q));
+  if (currentFilter === 'BDC') rows = rows.filter(d => d.type.includes('BDC'));
+  else if (currentFilter === 'CEF') rows = rows.filter(d => d.type.includes('CEF'));
+  else if (currentFilter === 'ETF') rows = rows.filter(d => d.type.includes('ETF'));
+  else if (currentFilter === 'hiyield') rows = rows.filter(d => d.yield >= 20);
+  return rows;
+}
+
+function filterTable() { renderTable(getFilteredData()); }
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  filterTable();
+}
+
+function sortTable(col) {
+  const ths = document.querySelectorAll('thead th');
+  ths.forEach((th, i) => { th.classList.remove('sort-asc','sort-desc'); });
+  if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+  ths[col].classList.add(sortDir===1?'sort-asc':'sort-desc');
+  const keys = ['rank','ticker','name','holdings','alloc','yield','type'];
+  const rows = getFilteredData().sort((a,b) => {
+    let av = a[keys[col]], bv = b[keys[col]];
+    if (typeof av === 'string') return av.localeCompare(bv) * sortDir;
+    return (av - bv) * sortDir;
+  });
+  renderTable(rows);
+}
+
+document.getElementById('btnAll').classList.add('active');
+renderTable(DATA);
+
+// ── CHARTS ──
+const GOLD = '#C9A84C';
+const GOLD2 = '#E8C97A';
+const INK = '#1A1714';
+const GREEN = '#2E7D5A';
+const AMBER = '#B45309';
+const RED = '#9B1C1C';
+
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#7A6F65';
+
+// 1. Top 10 Holdings
+const top10H = DATA.slice(0,10);
+new Chart(document.getElementById('holdingsChart'), {
+  type: 'bar',
+  data: {
+    labels: top10H.map(d=>d.ticker),
+    datasets: [{
+      data: top10H.map(d=>d.holdings),
+      backgroundColor: top10H.map((_,i) => i<5 ? GOLD : '#DFD2B5'),
+      borderRadius: 5,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{display:false}, tooltip:{callbacks:{label:ctx=>`${ctx.raw} members`}} },
+    scales: {
+      x: { grid:{display:false}, border:{display:false} },
+      y: { beginAtZero:true, grid:{color:'#EDE5D4'}, border:{display:false}, ticks:{stepSize:2} }
+    }
+  }
+});
+
+// 2. Top 10 Yield
+const top10Y = [...DATA].sort((a,b)=>b.yield-a.yield).slice(0,10);
+new Chart(document.getElementById('yieldChart'), {
+  type: 'bar',
+  data: {
+    labels: top10Y.map(d=>d.ticker),
+    datasets: [{
+      data: top10Y.map(d=>d.yield),
+      backgroundColor: top10Y.map(d => d.yield>=50 ? RED : d.yield>=20 ? AMBER : GREEN),
+      borderRadius: 5,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{display:false}, tooltip:{callbacks:{label:ctx=>`${ctx.raw.toFixed(2)}%`}} },
+    scales: {
+      x: { grid:{display:false}, border:{display:false} },
+      y: { beginAtZero:true, grid:{color:'#EDE5D4'}, border:{display:false}, ticks:{callback:v=>v+'%'} }
+    }
+  }
+});
+
+// 3. Asset Type Donut
+const typeMap = {};
+DATA.forEach(d => { typeMap[d.type] = (typeMap[d.type]||0)+1; });
+const sorted = Object.entries(typeMap).sort((a,b)=>b[1]-a[1]);
+const topTypes = sorted.slice(0,7);
+const otherCount = sorted.slice(7).reduce((s,[,v])=>s+v,0);
+if (otherCount > 0) topTypes.push(['Other', otherCount]);
+const PALETTE = [GOLD,'#B8860B','#2E7D5A','#1E3A5F','#6B3A2A','#4A5568','#805AD5','#C4A882'];
+new Chart(document.getElementById('pieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: topTypes.map(t=>t[0]),
+    datasets:[{
+      data: topTypes.map(t=>t[1]),
+      backgroundColor: PALETTE,
+      borderWidth: 2,
+      borderColor: '#FDFCF9',
+      hoverOffset: 6,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: {
+      legend:{ position:'bottom', labels:{ padding:12, font:{size:11}, boxWidth:12, usePointStyle:true } },
+      tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} tickers`}}
+    },
+    cutout: '58%'
+  }
+});
+
+// 4. Scatter: Yield vs Alloc
+const scatterData = DATA.filter(d=>d.yield<80).map(d=>({
+  x: d.alloc,
+  y: d.yield,
+  r: Math.max(3, d.holdings * 1.8),
+  label: d.ticker,
+  holdings: d.holdings,
+  extreme: d.yield >= 50,
+  high: d.yield >= 20,
+}));
+new Chart(document.getElementById('scatterChart'), {
+  type: 'bubble',
+  data: {
+    datasets:[{
+      label:'Positions',
+      data: scatterData,
+      backgroundColor: scatterData.map(d => d.extreme ? 'rgba(155,28,28,0.55)' : d.high ? 'rgba(180,83,9,0.55)' : 'rgba(46,125,90,0.50)'),
+      borderColor: scatterData.map(d => d.extreme ? RED : d.high ? AMBER : GREEN),
+      borderWidth: 1.5,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: {
+      legend:{display:false},
+      tooltip:{callbacks:{
+        label:ctx=>{
+          const d=ctx.raw;
+          return [`${d.label}`,`Yield: ${d.y.toFixed(2)}%`,`Alloc: ${d.x.toFixed(2)}%`,`Holdings: ${d.holdings}`];
+        }
+      }}
+    },
+    scales: {
+      x:{ title:{display:true,text:'Avg Allocation (%)',font:{size:12}}, grid:{color:'#EDE5D4'}, border:{display:false}, ticks:{callback:v=>v+'%'} },
+      y:{ title:{display:true,text:'Yield (%)',font:{size:12}}, beginAtZero:true, grid:{color:'#EDE5D4'}, border:{display:false}, ticks:{callback:v=>v+'%'} }
+    }
+  }
+});
+</script>
+</body>
+</html>
