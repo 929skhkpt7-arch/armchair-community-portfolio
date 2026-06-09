@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -453,6 +454,7 @@
     .insights-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -460,7 +462,7 @@
 <section class="hero">
   <div class="hero-badge">Armchair Insider Lounge</div>
   <h1>Most Popular <em>Community</em><br>Portfolio Positions</h1>
-  <p class="hero-sub">April – May 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
+  <p class="hero-sub">April – June 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
   <p class="hero-desc">
     A snapshot of the 100 most commonly held positions shared by members across our Buy, Sell, and Community Portfolio sections — ranked by member holdings and enriched with yield and asset class data.
   </p>
@@ -477,17 +479,17 @@
       <div class="insight-card">
         <div class="insight-label">Most Held Ticker</div>
         <div class="insight-value gold">PFFA</div>
-        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>15 member holdings</div>
+        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>13 member holdings</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Highest Yield</div>
-        <div class="insight-value green">68.45%</div>
+        <div class="insight-value green">65.93%</div>
         <div class="insight-meta">MSTY — YieldMax MSTR Option Income Strategy ETF</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Highest Avg Allocation</div>
-        <div class="insight-value gold">6.42%</div>
-        <div class="insight-meta">GPIQ — Goldman Sachs Nasdaq-100 Premium Income ETF</div>
+        <div class="insight-value gold">6.53%</div>
+        <div class="insight-meta">JAAA — Janus Henderson AAA CLO ETF</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Most Common Type</div>
@@ -554,7 +556,9 @@
       <button class="filter-btn" id="btnETF" onclick="setFilter('ETF')" data-filter="ETF">ETF</button>
       <button class="filter-btn" id="btnHiYield" onclick="setFilter('hiyield')" data-filter="hiyield">Yield &gt;20%</button>
       <span class="row-count" id="rowCount">100 positions</span>
-    </div>
+    
+    <button onclick="download_mainTable()" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:#1F6B47;color:#fff;border:none;border-radius:7px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:background .15s;white-space:nowrap;" onmouseover="this.style.background='#174f34'" onmouseout="this.style.background='#1F6B47'">⬇ Download Table as Excel</button>
+  </div>
 
     <div class="table-wrap">
       <table id="mainTable">
@@ -585,23 +589,23 @@
 
     <div class="analysis-block">
       <h3><span class="icon">📊</span> Most Popular Positions</h3>
-      <p>PFFA leads with 15 member holdings, followed by FSCO at 13. A strong cluster of tickers sit at 10–11 holdings each: QQQI, KGLD, CEFS, BTCI, NIHI, ASGI, and ADX. The top 10 collectively reflect strong community preference for income-focused vehicles across ETFs, CEFs, and BDCs.</p>
+      <p>PFFA leads with 13 member holdings, closely followed by QQQI and FSCO at 11. A strong cluster sits at 9 holdings: NIHI, MLPI, KGLD, and GOF. The top 10 collectively reflect continued community preference for income-focused vehicles spanning preferred stock ETFs, credit CEFs, and high-income covered call strategies.</p>
     </div>
 
     <div class="analysis-block">
       <h3><span class="icon">🏗️</span> Dominant Asset Classes</h3>
-      <p>BDCs remain the most represented category by count, with tickers including ARCC, MAIN, CSWC, HTGC, and BXSL. Covered Call ETFs — particularly the NEOS suite — are widely held, reflecting community interest in option-income strategies layered on major indices, assets, and international equities.</p>
+      <p>BDCs remain the most represented category by count, with tickers including ARCC, BXSL, HTGC, CSWC, and MAIN. The NEOS suite of covered call ETFs — QQQI, SPYI, NIHI, MLPI, IWMI — continues to be widely held, reflecting strong community interest in option-income strategies layered on major indices, precious metals, and international equities.</p>
     </div>
 
     <div class="analysis-block">
       <h3><span class="icon">📈</span> High-Yield Positions</h3>
-      <p>Several tickers carry exceptional yields: MSTY at 68.45%, ULTY at 65.90%, CHPY at 45.62%, BLOX at 36%, KSLV at 27.54%, and QDTE at 28.57%. These are primarily YieldMax and option-overlay products tied to volatile underlying assets like Bitcoin and semiconductors.</p>
+      <p>Several tickers carry exceptional yields: MSTY at 65.93%, ULTY at 65.04%, CHPY at 45.30%, QDTE at 42.98%, BLOX at 36.00%, and KSLV at 26.67%. These are primarily YieldMax and option-overlay products tied to volatile underlying assets like Bitcoin, semiconductors, and silver.</p>
       <div class="callout"><strong>Note:</strong> Elevated distribution yields often reflect return of capital or options premium capture, not organic income growth. These require closer individual evaluation.</div>
     </div>
 
     <div class="analysis-block">
       <h3><span class="icon">🔍</span> Diversification Observations</h3>
-      <p>The community shows healthy spread across credit (PIMCO CEFs), infrastructure (UTF, ASGI), real estate (RLTY, IYRI), CLOs (OXLC, ECC), and international equity (IDVO, NIHI). New additions such as AGNC and GPIQ highlight growing interest in mortgage REITs and Nasdaq-100 premium income products.</p>
+      <p>The community shows healthy spread across credit (PIMCO CEFs), infrastructure (UTF, ASGI), real estate (RLTY, IYRI), CLOs (OXLC, ECC), and international equity (IDVO, NIHI). New additions such as KGLD, KSLV, and IAUI highlight growing interest in precious metals income strategies as a portfolio diversifier.</p>
     </div>
 
     <div class="analysis-block">
@@ -611,7 +615,7 @@
 
     <div class="analysis-block">
       <h3><span class="icon">💡</span> Allocation Signals</h3>
-      <p>Average allocations remain modest for most tickers, typically under 4%, suggesting members generally practice position-sizing discipline. GPIQ stands out with the highest average allocation at 6.42%, with GPIX and QQQI also above 6%, reflecting member confidence in broad-market and Nasdaq covered call strategies as core holdings.</p>
+      <p>Average allocations remain modest for most tickers, typically under 4%, suggesting members generally practice position-sizing discipline. JAAA stands out with the highest average allocation at 6.53%, followed by QQQI at 5.85% and GPIX at 5.65%, reflecting member confidence in CLO debt, Nasdaq-100 covered calls, and S&P 500 premium income as core holdings.</p>
     </div>
 
   </div>
@@ -621,7 +625,7 @@
 <!-- FOOTER -->
 <footer>
   <div>
-    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; April – May 2026
+    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; April – June 2026
   </div>
   <div>Tickers shown are compatible with Seeking Alpha. Tickers for other websites and brokerages may vary.</div>
   <div>For discussion and educational purposes only. Not investment advice.</div>
@@ -629,106 +633,106 @@
 
 <script>
 const DATA = [
-  {rank:1,ticker:"PFFA",name:"Virtus InfraCap U.S. Preferred Stock ETF",holdings:15,alloc:3.14,yield:9.67,type:"Preferred Stock ETF"},
-  {rank:2,ticker:"FSCO",name:"FS Credit Opportunities Corp.",holdings:13,alloc:2.70,yield:13.83,type:"Credit CEF"},
-  {rank:3,ticker:"QQQI",name:"NEOS Nasdaq-100 High Income ETF",holdings:11,alloc:6.00,yield:14.11,type:"Covered Call ETF"},
-  {rank:4,ticker:"KGLD",name:"Kurv Gold Enhanced Income ETF",holdings:11,alloc:2.10,yield:17.49,type:"Gold Income ETF"},
-  {rank:5,ticker:"CEFS",name:"Saba Closed-End Funds ETF",holdings:11,alloc:3.84,yield:7.26,type:"CEF ETF"},
-  {rank:6,ticker:"BTCI",name:"NEOS Bitcoin High Income ETF",holdings:11,alloc:2.11,yield:26.65,type:"Crypto Income ETF"},
-  {rank:7,ticker:"NIHI",name:"NEOS MSCI EAFE High Income ETF",holdings:10,alloc:2.91,yield:10.17,type:"Covered Call ETF"},
-  {rank:8,ticker:"ASGI",name:"abrdn Global Infrastructure Income Fund",holdings:10,alloc:3.95,yield:11.47,type:"Infrastructure CEF"},
-  {rank:9,ticker:"ADX",name:"Adams Diversified Equity Fund, Inc.",holdings:10,alloc:4.57,yield:7.67,type:"Equity CEF"},
-  {rank:10,ticker:"SPYI",name:"NEOS S&P 500 High Income ETF",holdings:9,alloc:3.53,yield:12.09,type:"Covered Call ETF"},
-  {rank:11,ticker:"PBDC",name:"Putnam BDC Income ETF",holdings:9,alloc:3.12,yield:10.64,type:"BDC ETF"},
-  {rank:12,ticker:"IYRI",name:"NEOS Real Estate High Income ETF",holdings:9,alloc:1.72,yield:11.04,type:"Real Estate Income ETF"},
-  {rank:13,ticker:"IDVO",name:"Amplify CWP International Enhanced Dividend Income ETF",holdings:9,alloc:3.02,yield:5.95,type:"International Dividend ETF"},
-  {rank:14,ticker:"GOF",name:"Guggenheim Strategic Opportunities Fund",holdings:9,alloc:2.63,yield:19.70,type:"Credit CEF"},
-  {rank:15,ticker:"ARCC",name:"Ares Capital Corporation",holdings:9,alloc:3.04,yield:10.33,type:"BDC"},
-  {rank:16,ticker:"UTF",name:"Cohen & Steers Infrastructure Fund Inc.",holdings:8,alloc:1.44,yield:7.34,type:"Infrastructure CEF"},
-  {rank:17,ticker:"PDI",name:"PIMCO Dynamic Income Fund",holdings:8,alloc:3.11,yield:15.93,type:"Credit CEF"},
-  {rank:18,ticker:"MLPI",name:"NEOS MLP & Energy Infrastructure High Income ETF",holdings:8,alloc:3.09,yield:14.72,type:"Energy Infrastructure ETF"},
-  {rank:19,ticker:"KSLV",name:"Kurv Silver Enhanced Income ETF",holdings:8,alloc:2.44,yield:27.54,type:"Gold & Silver Income ETF"},
-  {rank:20,ticker:"GPIX",name:"Goldman Sachs S&P 500 Premium Income ETF",holdings:8,alloc:6.15,yield:8.34,type:"Covered Call ETF"},
-  {rank:21,ticker:"RLTY",name:"Cohen & Steers Real Estate Opportunities & Income Fund",holdings:7,alloc:1.22,yield:8.39,type:"Real Estate CEF"},
-  {rank:22,ticker:"PTY",name:"PIMCO Corporate & Income Opportunity Fund",holdings:7,alloc:1.98,yield:12.09,type:"Credit CEF"},
-  {rank:23,ticker:"CSWC",name:"Capital Southwest Corporation",holdings:7,alloc:2.05,yield:11.25,type:"BDC"},
-  {rank:24,ticker:"BXSL",name:"Blackstone Secured Lending Fund",holdings:7,alloc:1.80,yield:13.20,type:"BDC"},
-  {rank:25,ticker:"UTG",name:"Reaves Utility Income Fund",holdings:6,alloc:2.23,yield:5.64,type:"Utility CEF"},
-  {rank:26,ticker:"NML",name:"Neuberger Energy Infra and Income Fund Inc.",holdings:6,alloc:2.18,yield:8.05,type:"Energy Infrastructure CEF"},
-  {rank:27,ticker:"KQQQ",name:"Kurv Technology Titans Select ETF",holdings:6,alloc:1.69,yield:14.99,type:"Covered Call ETF"},
-  {rank:28,ticker:"KIO",name:"KKR Income Opportunities Fund",holdings:6,alloc:3.11,yield:12.96,type:"High Yield Bond CEF"},
-  {rank:29,ticker:"IAUI",name:"NEOS Gold High Income ETF",holdings:6,alloc:1.98,yield:12.27,type:"Gold Income ETF"},
-  {rank:30,ticker:"HTGC",name:"Hercules Capital, Inc.",holdings:6,alloc:2.50,yield:12.26,type:"BDC"},
-  {rank:31,ticker:"BLOX",name:"Amplify Transformational Data Sharing ETF",holdings:6,alloc:2.04,yield:36.00,type:"Crypto Income ETF"},
-  {rank:32,ticker:"QDVO",name:"Amplify CWP Growth & Income ETF",holdings:5,alloc:2.15,yield:11.11,type:"Covered Call ETF"},
-  {rank:33,ticker:"PCN",name:"PIMCO Corporate & Income Strategy Fund",holdings:5,alloc:2.57,yield:11.54,type:"Credit CEF"},
-  {rank:34,ticker:"OBDC",name:"Blue Owl Capital Corporation",holdings:5,alloc:1.39,yield:11.42,type:"BDC"},
-  {rank:35,ticker:"MSTY",name:"YieldMax MSTR Option Income Strategy ETF",holdings:5,alloc:1.22,yield:68.45,type:"Crypto Income ETF"},
-  {rank:36,ticker:"BRW",name:"Saba Capital Income & Opportunities Fund",holdings:5,alloc:1.89,yield:15.11,type:"Multi-Strategy CEF"},
-  {rank:37,ticker:"XFLT",name:"XAI Octagon Floating Rate & Alternative Income Trust",holdings:4,alloc:1.52,yield:14.35,type:"CLO Blend Fund"},
-  {rank:38,ticker:"TRIN",name:"Trinity Capital Inc.",holdings:4,alloc:2.32,yield:12.37,type:"BDC"},
-  {rank:39,ticker:"THQ",name:"abrdn Healthcare Opportunities Fund",holdings:4,alloc:1.16,yield:11.68,type:"Healthcare CEF"},
-  {rank:40,ticker:"RFI",name:"Cohen & Steers Total Return Realty Fund",holdings:4,alloc:2.15,yield:8.52,type:"Real Estate CEF"},
-  {rank:41,ticker:"OXLC",name:"Oxford Lane Capital Corp.",holdings:4,alloc:0.97,yield:24.92,type:"CLO Equity Fund"},
-  {rank:42,ticker:"MAIN",name:"Main Street Capital Corporation",holdings:4,alloc:2.43,yield:8.70,type:"BDC"},
-  {rank:43,ticker:"IWMI",name:"NEOS Russell 2000 High Income ETF",holdings:4,alloc:2.61,yield:14.47,type:"Covered Call ETF"},
-  {rank:44,ticker:"FSK",name:"FS KKR Capital Corp.",holdings:4,alloc:1.43,yield:16.98,type:"BDC"},
-  {rank:45,ticker:"FDUS",name:"Fidus Investment Corporation",holdings:4,alloc:2.03,yield:11.86,type:"BDC"},
-  {rank:46,ticker:"EIC",name:"Eagle Point Income Company Inc.",holdings:4,alloc:1.48,yield:12.38,type:"CLO Debt Fund"},
-  {rank:47,ticker:"DX",name:"Dynex Capital, Inc.",holdings:4,alloc:3.83,yield:16.04,type:"Mortgage REIT"},
-  {rank:48,ticker:"BBDC",name:"Barings BDC, Inc.",holdings:4,alloc:2.09,yield:12.22,type:"BDC"},
-  {rank:49,ticker:"WDI",name:"Western Asset Diversified Income Fund",holdings:3,alloc:3.81,yield:13.26,type:"Bond CEF"},
-  {rank:50,ticker:"ULTY",name:"YieldMax Ultra Option Income Strategy ETF",holdings:3,alloc:0.83,yield:65.90,type:"Covered Call ETF"},
-  {rank:51,ticker:"TYG",name:"Tortoise Energy Infrastructure Corp.",holdings:3,alloc:1.13,yield:12.34,type:"Energy Infrastructure CEF"},
-  {rank:52,ticker:"SPE",name:"Special Opportunities Fund, Inc.",holdings:3,alloc:1.35,yield:9.36,type:"Multi-Strategy CEF"},
-  {rank:53,ticker:"PFN",name:"PIMCO Income Strategy Fund II",holdings:3,alloc:1.86,yield:12.58,type:"Credit CEF"},
-  {rank:54,ticker:"PDO",name:"PIMCO Dynamic Income Opportunities Fund",holdings:3,alloc:3.98,yield:12.06,type:"Credit CEF"},
-  {rank:55,ticker:"PAXS",name:"PIMCO Access Income Fund",holdings:3,alloc:1.48,yield:12.77,type:"Credit CEF"},
-  {rank:56,ticker:"NXG",name:"NXG NextGen Infrastructure Income Fund",holdings:3,alloc:0.60,yield:11.24,type:"Infrastructure CEF"},
-  {rank:57,ticker:"NBXG",name:"Neuberger Berman Next Generation Connectivity Fund",holdings:3,alloc:1.39,yield:9.03,type:"Equity CEF"},
-  {rank:58,ticker:"KYLD",name:"Kurv High Income ETF",holdings:3,alloc:4.15,yield:23.70,type:"Covered Call ETF"},
-  {rank:59,ticker:"KCOP",name:"Kurv Copper Enhanced Income ETF",holdings:3,alloc:2.57,yield:15.84,type:"Commodity Income ETF"},
-  {rank:60,ticker:"JFR",name:"Nuveen Floating Rate Income Fund",holdings:3,alloc:1.44,yield:12.33,type:"Senior Loan Fund"},
-  {rank:61,ticker:"JBBB",name:"Janus Henderson B-BBB CLO ETF",holdings:3,alloc:1.32,yield:7.63,type:"CLO ETF"},
-  {rank:62,ticker:"JAAA",name:"Janus Henderson AAA CLO ETF",holdings:3,alloc:5.39,yield:5.51,type:"AAA CLO ETF"},
-  {rank:63,ticker:"GPIQ",name:"Goldman Sachs Nasdaq-100 Premium Income ETF",holdings:3,alloc:6.42,yield:10.04,type:"Covered Call ETF"},
-  {rank:64,ticker:"FOF",name:"Cohen & Steers Closed-End Opportunity Fund",holdings:3,alloc:0.68,yield:7.53,type:"Multi-Strategy CEF"},
-  {rank:65,ticker:"FEPI",name:"REX FANG & Innovation Equity Premium Income ETF",holdings:3,alloc:2.63,yield:25.21,type:"Covered Call ETF"},
-  {rank:66,ticker:"ETV",name:"Eaton Vance Tax-Managed Buy-Write Opportunities Fund",holdings:3,alloc:0.82,yield:8.18,type:"Covered Call CEF"},
-  {rank:67,ticker:"EMO",name:"ClearBridge Energy Midstream Opportunity Fund Inc.",holdings:3,alloc:1.23,yield:8.31,type:"Energy Infrastructure CEF"},
-  {rank:68,ticker:"ECC",name:"Eagle Point Credit Company Inc.",holdings:3,alloc:1.02,yield:17.82,type:"CLO Equity Fund"},
-  {rank:69,ticker:"DSU",name:"BlackRock Debt Strategies Fund, Inc.",holdings:3,alloc:1.19,yield:12.05,type:"Senior Loan Fund"},
-  {rank:70,ticker:"CLM",name:"Cornerstone Strategic Investment Fund, Inc.",holdings:3,alloc:2.53,yield:19.31,type:"Equity CEF"},
-  {rank:71,ticker:"CHPY",name:"YieldMax Semiconductor Portfolio Option Income ETF",holdings:3,alloc:4.19,yield:45.62,type:"Covered Call ETF"},
-  {rank:72,ticker:"CGBD",name:"Carlyle Secured Lending, Inc.",holdings:3,alloc:2.19,yield:13.11,type:"BDC"},
-  {rank:73,ticker:"CCIF",name:"Carlyle Credit Income Fund",holdings:3,alloc:0.82,yield:22.54,type:"CLO Equity Fund"},
-  {rank:74,ticker:"BIZD",name:"VanEck BDC Income ETF",holdings:3,alloc:1.54,yield:13.92,type:"BDC ETF"},
-  {rank:75,ticker:"BGH",name:"Barings Global Short Duration High Yield Fund",holdings:3,alloc:1.63,yield:12.21,type:"High Yield Bond CEF"},
-  {rank:76,ticker:"BDJ",name:"BlackRock Enhanced Equity Dividend Trust",holdings:3,alloc:1.15,yield:8.09,type:"Equity Income CEF"},
-  {rank:77,ticker:"BCSF",name:"Bain Capital Specialty Finance, Inc.",holdings:3,alloc:2.15,yield:14.53,type:"BDC"},
-  {rank:78,ticker:"AGNC",name:"AGNC Investment Corp.",holdings:3,alloc:4.05,yield:14.10,type:"Mortgage REIT"},
-  {rank:79,ticker:"ADAMH",name:"Adamas Trust, Inc. CAL 30",holdings:3,alloc:2.36,yield:9.60,type:"Baby Bond"},
-  {rank:80,ticker:"TSPY",name:"TappAlpha S&P 500 Growth & Daily Income ETF",holdings:2,alloc:1.34,yield:14.03,type:"Covered Call ETF"},
-  {rank:81,ticker:"TSLX",name:"Sixth Street Specialty Lending, Inc.",holdings:2,alloc:0.70,yield:10.31,type:"BDC"},
-  {rank:82,ticker:"THW",name:"abrdn World Healthcare Fund",holdings:2,alloc:0.85,yield:10.92,type:"Healthcare CEF"},
-  {rank:83,ticker:"SRV",name:"NXG Cushing Midstream Energy Fund",holdings:2,alloc:1.53,yield:15.31,type:"Energy Infrastructure CEF"},
-  {rank:84,ticker:"SOXY",name:"YieldMax Target 12 Semiconductor Option Inc ETF",holdings:2,alloc:0.72,yield:12.00,type:"Covered Call ETF"},
-  {rank:85,ticker:"RVT",name:"Royce Small-Cap Trust Inc.",holdings:2,alloc:2.75,yield:6.55,type:"Equity CEF"},
-  {rank:86,ticker:"QDTE",name:"Roundhill Innovation-100 0DTE Covered Call Strategy ETF",holdings:2,alloc:4.98,yield:28.57,type:"Covered Call ETF"},
-  {rank:87,ticker:"PGZ",name:"Principal Real Estate Income Fund",holdings:2,alloc:1.70,yield:12.91,type:"Real Estate CEF"},
-  {rank:88,ticker:"OVL",name:"Overlay Shares Large Cap Equity ETF",holdings:2,alloc:0.59,yield:5.33,type:"Broad Market ETF"},
-  {rank:89,ticker:"OTF",name:"Blue Owl Technology Finance Corp.",holdings:2,alloc:1.55,yield:13.17,type:"BDC"},
-  {rank:90,ticker:"OCCI",name:"OFS Credit Company, Inc.",holdings:2,alloc:0.49,yield:18.35,type:"CLO Equity Fund"},
-  {rank:91,ticker:"NPFD",name:"Nuveen Preferred & Income Term Fund",holdings:2,alloc:1.28,yield:9.99,type:"Preferred Securities CEF"},
-  {rank:92,ticker:"NFJ",name:"Virtus Dividend, Interest & Premium Strategy Fund",holdings:2,alloc:0.84,yield:8.37,type:"Covered Call CEF"},
-  {rank:93,ticker:"MSFY",name:"Kurv Yield Premium Strategy Microsoft MSFT ETF",holdings:2,alloc:1.15,yield:13.19,type:"Covered Call ETF"},
-  {rank:94,ticker:"MSDL",name:"Morgan Stanley Direct Lending Fund",holdings:2,alloc:1.13,yield:11.93,type:"BDC"},
-  {rank:95,ticker:"MFIC",name:"MidCap Financial Investment Corporation",holdings:2,alloc:2.03,yield:11.70,type:"BDC"},
-  {rank:96,ticker:"MEGI",name:"NYLI CBRE Global Infrastructure Megatrends Term Fund",holdings:2,alloc:0.88,yield:9.77,type:"Infrastructure CEF"},
-  {rank:97,ticker:"KBDC",name:"Kayne Anderson BDC, Inc.",holdings:2,alloc:1.62,yield:10.97,type:"BDC"},
-  {rank:98,ticker:"ISD",name:"PGIM High Yield Bond Fund, Inc.",holdings:2,alloc:1.03,yield:9.74,type:"High Yield Bond CEF"},
-  {rank:99,ticker:"HTD",name:"John Hancock Tax-Advantaged Dividend Income Fund",holdings:2,alloc:0.41,yield:7.45,type:"Dividend Income CEF"},
-  {rank:100,ticker:"GHY",name:"PGIM Global High Yield Fund, Inc.",holdings:2,alloc:0.80,yield:10.55,type:"High Yield Bond CEF"},
+  {rank:1,ticker:"PFFA",name:"Virtus InfraCap U.S. Preferred Stock ETF",holdings:13,alloc:3.15,yield:9.70,type:"Preferred Stock ETF"},
+  {rank:2,ticker:"QQQI",name:"NEOS Nasdaq-100 High Income ETF",holdings:11,alloc:5.85,yield:14.11,type:"Covered Call Equity ETF"},
+  {rank:3,ticker:"FSCO",name:"FS Credit Opportunities Corp.",holdings:11,alloc:2.81,yield:14.82,type:"Private Credit / BDC"},
+  {rank:4,ticker:"NIHI",name:"NEOS MSCI EAFE High Income ETF",holdings:9,alloc:3.32,yield:9.98,type:"International Equity Income ETF"},
+  {rank:5,ticker:"MLPI",name:"NEOS MLP & Energy Infrastructure High Income ETF",holdings:9,alloc:3.29,yield:14.76,type:"MLP Income ETF"},
+  {rank:6,ticker:"KGLD",name:"Kurv Gold Enhanced Income ETF",holdings:9,alloc:3.09,yield:15.52,type:"Precious Metals Income ETF"},
+  {rank:7,ticker:"GOF",name:"Guggenheim Strategic Opportunities Fund",holdings:9,alloc:2.63,yield:19.85,type:"Multi-Sector Bond CEF"},
+  {rank:8,ticker:"UTF",name:"Cohen & Steers Infrastructure Fund Inc.",holdings:8,alloc:1.97,yield:7.29,type:"Infrastructure CEF"},
+  {rank:9,ticker:"PDI",name:"PIMCO Dynamic Income Fund",holdings:8,alloc:3.11,yield:15.76,type:"Multi-Sector Bond CEF"},
+  {rank:10,ticker:"KSLV",name:"Kurv Silver Enhanced Income ETF",holdings:8,alloc:2.32,yield:26.67,type:"Precious Metals Income ETF"},
+  {rank:11,ticker:"CEFS",name:"Saba Closed-End Funds ETF",holdings:8,alloc:3.75,yield:7.23,type:"CEF ETF"},
+  {rank:12,ticker:"BTCI",name:"NEOS Bitcoin High Income ETF",holdings:8,alloc:2.20,yield:26.72,type:"Cryptocurrency Income ETF"},
+  {rank:13,ticker:"ASGI",name:"abrdn Global Infrastructure Income Fund",holdings:8,alloc:4.32,yield:12.17,type:"Infrastructure CEF"},
+  {rank:14,ticker:"ARCC",name:"Ares Capital Corporation",holdings:8,alloc:2.49,yield:10.22,type:"BDC"},
+  {rank:15,ticker:"ADX",name:"Adams Diversified Equity Fund, Inc.",holdings:8,alloc:3.70,yield:7.70,type:"Equity CEF"},
+  {rank:16,ticker:"SPYI",name:"NEOS S&P 500 High Income ETF",holdings:7,alloc:3.52,yield:12.08,type:"Covered Call Equity ETF"},
+  {rank:17,ticker:"RLTY",name:"Cohen & Steers Real Estate Opportunities & Income Fund",holdings:7,alloc:1.43,yield:8.39,type:"Real Estate CEF"},
+  {rank:18,ticker:"PBDC",name:"Putnam BDC Income ETF",holdings:7,alloc:3.33,yield:11.61,type:"BDC ETF"},
+  {rank:19,ticker:"IDVO",name:"Amplify CWP International Enhanced Dividend Income ETF",holdings:7,alloc:3.08,yield:6.08,type:"International Dividend ETF"},
+  {rank:20,ticker:"IAUI",name:"NEOS Gold High Income ETF",holdings:7,alloc:3.38,yield:12.14,type:"Precious Metals Income ETF"},
+  {rank:21,ticker:"BXSL",name:"Blackstone Secured Lending Fund",holdings:7,alloc:1.58,yield:13.07,type:"BDC"},
+  {rank:22,ticker:"PTY",name:"PIMCO Corporate & Income Opportunity Fund",holdings:6,alloc:1.69,yield:12.03,type:"Multi-Sector Bond CEF"},
+  {rank:23,ticker:"KIO",name:"KKR Income Opportunities Fund",holdings:6,alloc:3.11,yield:12.95,type:"Multi-Sector Bond CEF"},
+  {rank:24,ticker:"IYRI",name:"NEOS Real Estate High Income ETF",holdings:6,alloc:1.88,yield:10.75,type:"Real Estate Income ETF"},
+  {rank:25,ticker:"HTGC",name:"Hercules Capital, Inc.",holdings:6,alloc:2.10,yield:12.30,type:"BDC"},
+  {rank:26,ticker:"CSWC",name:"Capital Southwest Corporation",holdings:6,alloc:1.87,yield:11.03,type:"BDC"},
+  {rank:27,ticker:"BLOX",name:"Amplify Transformational Data Sharing ETF",holdings:6,alloc:2.04,yield:36.00,type:"Cryptocurrency / Blockchain ETF"},
+  {rank:28,ticker:"PCN",name:"PIMCO Corporate & Income Strategy Fund",holdings:5,alloc:2.45,yield:11.54,type:"Bond CEF"},
+  {rank:29,ticker:"OBDC",name:"Blue Owl Capital Corporation",holdings:5,alloc:1.39,yield:11.43,type:"BDC"},
+  {rank:30,ticker:"NML",name:"Neuberger Energy Infra and Income Fund Inc.",holdings:5,alloc:2.38,yield:8.31,type:"Energy Infrastructure CEF"},
+  {rank:31,ticker:"GPIX",name:"Goldman Sachs S&P 500 Premium Income ETF",holdings:5,alloc:5.65,yield:8.00,type:"Covered Call Equity ETF"},
+  {rank:32,ticker:"EIC",name:"Eagle Point Income Company Inc.",holdings:5,alloc:1.35,yield:12.55,type:"CLO Fund"},
+  {rank:33,ticker:"BRW",name:"Saba Capital Income & Opportunities Fund",holdings:5,alloc:1.89,yield:15.22,type:"Multi-Strategy CEF"},
+  {rank:34,ticker:"XFLT",name:"XAI Octagon Floating Rate & Alternative Income Trust",holdings:4,alloc:1.52,yield:14.94,type:"Credit / CLO CEF"},
+  {rank:35,ticker:"UTG",name:"Reaves Utility Income Fund",holdings:4,alloc:1.60,yield:5.85,type:"Utility CEF"},
+  {rank:36,ticker:"TRIN",name:"Trinity Capital Inc.",holdings:4,alloc:2.32,yield:12.09,type:"BDC"},
+  {rank:37,ticker:"THQ",name:"abrdn Healthcare Opportunities Fund",holdings:4,alloc:0.76,yield:11.84,type:"Healthcare CEF"},
+  {rank:38,ticker:"OXLC",name:"Oxford Lane Capital Corp.",holdings:4,alloc:0.97,yield:24.91,type:"CLO Fund"},
+  {rank:39,ticker:"MSTY",name:"YieldMax MSTR Option Income Strategy ETF",holdings:4,alloc:1.50,yield:65.93,type:"Single-Stock Covered Call ETF"},
+  {rank:40,ticker:"MAIN",name:"Main Street Capital Corporation",holdings:4,alloc:1.92,yield:8.34,type:"BDC"},
+  {rank:41,ticker:"KQQQ",name:"Kurv Technology Titans Select ETF",holdings:4,alloc:1.79,yield:13.10,type:"Covered Call Technology ETF"},
+  {rank:42,ticker:"GPIQ",name:"Goldman Sachs Nasdaq-100 Premium Income ETF",holdings:4,alloc:5.32,yield:9.65,type:"Covered Call Equity ETF"},
+  {rank:43,ticker:"FSK",name:"FS KKR Capital Corp.",holdings:4,alloc:1.43,yield:17.10,type:"BDC"},
+  {rank:44,ticker:"FDUS",name:"Fidus Investment Corporation",holdings:4,alloc:1.86,yield:11.97,type:"BDC"},
+  {rank:45,ticker:"DX",name:"Dynex Capital, Inc.",holdings:4,alloc:3.83,yield:15.85,type:"Mortgage REIT"},
+  {rank:46,ticker:"BBDC",name:"Barings BDC, Inc.",holdings:4,alloc:2.09,yield:12.47,type:"BDC"},
+  {rank:47,ticker:"WDI",name:"Western Asset Diversified Income Fund",holdings:3,alloc:3.81,yield:13.48,type:"Multi-Sector Bond CEF"},
+  {rank:48,ticker:"ULTY",name:"YieldMax Ultra Option Income Strategy ETF",holdings:3,alloc:0.83,yield:65.04,type:"Options Income ETF"},
+  {rank:49,ticker:"TYG",name:"Tortoise Energy Infrastructure Corp.",holdings:3,alloc:1.13,yield:13.19,type:"Energy Infrastructure CEF"},
+  {rank:50,ticker:"SPE",name:"Special Opportunities Fund, Inc.",holdings:3,alloc:1.35,yield:9.41,type:"Multi-Strategy CEF"},
+  {rank:51,ticker:"QDVO",name:"Amplify CWP Growth & Income ETF",holdings:3,alloc:1.31,yield:11.01,type:"Dividend Growth ETF"},
+  {rank:52,ticker:"PDO",name:"PIMCO Dynamic Income Opportunities Fund",holdings:3,alloc:3.98,yield:11.75,type:"Multi-Sector Bond CEF"},
+  {rank:53,ticker:"PAXS",name:"PIMCO Access Income Fund",holdings:3,alloc:1.48,yield:12.61,type:"Multi-Sector Bond CEF"},
+  {rank:54,ticker:"NXG",name:"NXG NextGen Infrastructure Income Fund",holdings:3,alloc:0.60,yield:12.24,type:"Infrastructure CEF"},
+  {rank:55,ticker:"NBXG",name:"Neuberger Berman Next Generation Connectivity Fund",holdings:3,alloc:1.39,yield:9.05,type:"Technology / Growth Equity CEF"},
+  {rank:56,ticker:"KYLD",name:"Kurv High Income ETF",holdings:3,alloc:4.15,yield:23.70,type:"Covered Call ETF"},
+  {rank:57,ticker:"KCOP",name:"Kurv Copper Enhanced Income ETF",holdings:3,alloc:2.83,yield:14.26,type:"Commodity Income ETF"},
+  {rank:58,ticker:"JFR",name:"Nuveen Floating Rate Income Fund",holdings:3,alloc:1.44,yield:12.33,type:"Senior Loan CEF"},
+  {rank:59,ticker:"JBBB",name:"Janus Henderson B-BBB CLO ETF",holdings:3,alloc:1.32,yield:7.36,type:"CLO ETF"},
+  {rank:60,ticker:"IWMI",name:"NEOS Russell 2000 High Income ETF",holdings:3,alloc:2.47,yield:14.29,type:"Small-Cap Equity Income ETF"},
+  {rank:61,ticker:"FOF",name:"Cohen & Steers Closed-End Opportunity Fund",holdings:3,alloc:0.68,yield:7.60,type:"Fund-of-Funds CEF"},
+  {rank:62,ticker:"FEPI",name:"REX FANG & Innovation Equity Premium Income ETF",holdings:3,alloc:2.63,yield:22.64,type:"Covered Call Technology ETF"},
+  {rank:63,ticker:"ETV",name:"Eaton Vance Tax-Managed Buy-Write Opportunities Fund",holdings:3,alloc:0.82,yield:8.09,type:"Covered Call CEF"},
+  {rank:64,ticker:"EMO",name:"ClearBridge Energy Midstream Opportunity Fund Inc.",holdings:3,alloc:3.90,yield:8.60,type:"Energy Infrastructure CEF"},
+  {rank:65,ticker:"ECC",name:"Eagle Point Credit Company Inc.",holdings:3,alloc:1.02,yield:17.73,type:"CLO Fund"},
+  {rank:66,ticker:"DSU",name:"BlackRock Debt Strategies Fund, Inc.",holdings:3,alloc:1.19,yield:12.29,type:"Bond CEF"},
+  {rank:67,ticker:"DSL",name:"DoubleLine Income Solutions Fund",holdings:3,alloc:3.05,yield:12.13,type:"Multi-Sector Bond CEF"},
+  {rank:68,ticker:"CLM",name:"Cornerstone Strategic Investment Fund, Inc.",holdings:3,alloc:2.53,yield:19.34,type:"Equity CEF"},
+  {rank:69,ticker:"CHPY",name:"YieldMax Semiconductor Portfolio Option Income ETF",holdings:3,alloc:4.19,yield:45.30,type:"Semiconductor Covered Call ETF"},
+  {rank:70,ticker:"CGBD",name:"Carlyle Secured Lending, Inc.",holdings:3,alloc:2.19,yield:13.16,type:"BDC"},
+  {rank:71,ticker:"CCIF",name:"Carlyle Credit Income Fund",holdings:3,alloc:0.82,yield:23.45,type:"Credit Fund"},
+  {rank:72,ticker:"BIZD",name:"VanEck BDC Income ETF",holdings:3,alloc:1.54,yield:13.80,type:"BDC ETF"},
+  {rank:73,ticker:"BGH",name:"Barings Global Short Duration High Yield Fund",holdings:3,alloc:1.63,yield:12.28,type:"High Yield Bond CEF"},
+  {rank:74,ticker:"BDJ",name:"BlackRock Enhanced Equity Dividend Trust",holdings:3,alloc:1.15,yield:8.12,type:"Equity CEF"},
+  {rank:75,ticker:"BCSF",name:"Bain Capital Specialty Finance, Inc.",holdings:3,alloc:2.15,yield:15.01,type:"BDC"},
+  {rank:76,ticker:"AGNC",name:"AGNC Investment Corp.",holdings:3,alloc:4.05,yield:14.16,type:"Mortgage REIT"},
+  {rank:77,ticker:"TSPY",name:"TappAlpha S&P 500 Growth & Daily Income ETF",holdings:2,alloc:1.34,yield:14.09,type:"Covered Call Equity ETF"},
+  {rank:78,ticker:"TSLX",name:"Sixth Street Specialty Lending, Inc.",holdings:2,alloc:0.70,yield:10.18,type:"BDC"},
+  {rank:79,ticker:"THW",name:"abrdn World Healthcare Fund",holdings:2,alloc:0.85,yield:11.26,type:"Healthcare CEF"},
+  {rank:80,ticker:"SRV",name:"NXG Cushing Midstream Energy Fund",holdings:2,alloc:1.53,yield:16.80,type:"Energy Infrastructure CEF"},
+  {rank:81,ticker:"QDTE",name:"Roundhill Innovation-100 0DTE Covered Call Strategy ETF",holdings:2,alloc:4.98,yield:42.98,type:"Covered Call ETF"},
+  {rank:82,ticker:"PGZ",name:"Principal Real Estate Income Fund",holdings:2,alloc:1.70,yield:12.73,type:"Real Estate CEF"},
+  {rank:83,ticker:"PFN",name:"PIMCO Income Strategy Fund II",holdings:2,alloc:1.79,yield:12.58,type:"Bond CEF"},
+  {rank:84,ticker:"OVL",name:"Overlay Shares Large Cap Equity ETF",holdings:2,alloc:0.59,yield:6.34,type:"Large-Cap Equity ETF"},
+  {rank:85,ticker:"OTF",name:"Blue Owl Technology Finance Corp.",holdings:2,alloc:1.55,yield:12.40,type:"BDC"},
+  {rank:86,ticker:"OCCI",name:"OFS Credit Company, Inc.",holdings:2,alloc:0.49,yield:18.58,type:"CLO Fund"},
+  {rank:87,ticker:"NPFD",name:"Nuveen Preferred & Income Term Fund",holdings:2,alloc:1.28,yield:10.04,type:"Preferred Securities CEF"},
+  {rank:88,ticker:"NFJ",name:"Virtus Dividend, Interest & Premium Strategy Fund",holdings:2,alloc:0.84,yield:8.23,type:"Equity & Convertible CEF"},
+  {rank:89,ticker:"MSDL",name:"Morgan Stanley Direct Lending Fund",holdings:2,alloc:1.13,yield:11.88,type:"BDC"},
+  {rank:90,ticker:"MFIC",name:"MidCap Financial Investment Corporation",holdings:2,alloc:2.03,yield:11.83,type:"BDC"},
+  {rank:91,ticker:"MEGI",name:"NYLI CBRE Global Infrastructure Megatrends Term Fund",holdings:2,alloc:0.88,yield:9.95,type:"Infrastructure CEF"},
+  {rank:92,ticker:"KBDC",name:"Kayne Anderson BDC, Inc.",holdings:2,alloc:1.62,yield:11.16,type:"BDC"},
+  {rank:93,ticker:"JAAA",name:"Janus Henderson AAA CLO ETF",holdings:2,alloc:6.53,yield:5.43,type:"CLO ETF"},
+  {rank:94,ticker:"ISD",name:"PGIM High Yield Bond Fund, Inc.",holdings:2,alloc:1.03,yield:9.81,type:"High Yield Bond CEF"},
+  {rank:95,ticker:"HTD",name:"John Hancock Tax-Advantaged Dividend Income Fund",holdings:2,alloc:0.41,yield:7.52,type:"Utility & Dividend CEF"},
+  {rank:96,ticker:"GHY",name:"PGIM Global High Yield Fund, Inc.",holdings:2,alloc:0.80,yield:10.71,type:"High Yield Bond CEF"},
+  {rank:97,ticker:"EXG",name:"Eaton Vance Tax-Managed Global Dvsfd Eqty Inc Fund",holdings:2,alloc:1.00,yield:8.45,type:"Global Covered Call CEF"},
+  {rank:98,ticker:"EVT",name:"Eaton Vance Tax-Advantaged Dividend Income Fund",holdings:2,alloc:0.57,yield:7.45,type:"Dividend Equity CEF"},
+  {rank:99,ticker:"EPR",name:"EPR Properties",holdings:2,alloc:0.68,yield:6.49,type:"REIT"},
+  {rank:100,ticker:"EOS",name:"Eaton Vance Enhanced Equity Income Fund II",holdings:2,alloc:3.06,yield:8.26,type:"Covered Call CEF"},
 ];
 
 // ── TABLE ──
@@ -929,6 +933,27 @@ new Chart(document.getElementById('scatterChart'), {
     }
   }
 });
+</script>
+
+<script>
+function download_mainTable() {
+  var headers = ['#', 'Ticker', 'Name', 'Holdings', 'Avg Alloc', 'Yield', 'Type'];
+  var rows = [headers];
+  var tbody = document.getElementById('tableBody');
+  var trs = tbody ? tbody.querySelectorAll('tr') : [];
+  trs.forEach(function(tr) {
+    var row = [];
+    tr.querySelectorAll('td').forEach(function(td, i) {
+      var text = td.innerText.trim();
+      row.push(text);
+    });
+    if (row.length > 0) rows.push(row);
+  });
+  var ws = XLSX.utils.aoa_to_sheet(rows);
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Report');
+  XLSX.writeFile(wb, 'CommunityPortfolio.xlsx');
+}
 </script>
 </body>
 </html>
