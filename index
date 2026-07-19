@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -287,6 +289,12 @@
     color: var(--red);
     position: relative;
   }
+  .yield-cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
   .tag-high {
     display: inline-block;
     background: var(--amber-light);
@@ -314,6 +322,17 @@
     padding: 2px 8px;
     border-radius: 100px;
     color: var(--ink-mid);
+    white-space: nowrap;
+  }
+  .freq-pill {
+    display: inline-block;
+    background: #FFF6DB;
+    border: 1px solid var(--gold-border, var(--gold));
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    color: #7A5722;
     white-space: nowrap;
   }
   .holdings-bar-wrap { display: flex; align-items: center; gap: 8px; }
@@ -439,9 +458,6 @@
   }
   footer span { color: rgba(201,168,76,0.7); }
 
-  /* ── SCATTER CANVAS ── */
-  #scatterChart { max-height: 340px; }
-
   @media (max-width: 768px) {
     .hero { padding: 48px 20px 40px; }
     .charts-grid { grid-template-columns: 1fr; }
@@ -452,7 +468,123 @@
   @media (max-width: 480px) {
     .insights-grid { grid-template-columns: 1fr 1fr; }
   }
+
+
+/* 2026 simplified interface refresh */
+:root{
+  --gold:#C9A84C;
+  --gold-lt:#E8C97A;
+  --gold-pale:#FBF5E6;
+  --ink:#1D1B16;
+  --ink-mid:#4D483E;
+  --ink-lt:#777064;
+  --surface:#F7F5EF;
+  --surface-2:#F1EEE6;
+  --surface-3:#E8E2D5;
+  --border:#DDD7C9;
+  --r:16px;
+  --rs:10px;
+  --sh:0 8px 24px rgba(43,37,24,.055);
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(201,168,76,.10),transparent 28rem),
+    var(--surface);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  line-height:1.55;
+}
+.wrap{max-width:1120px}
+.hero{
+  min-height:0!important;
+  padding:clamp(44px,7vw,78px) 24px!important;
+  background:
+    linear-gradient(145deg,rgba(29,27,22,.97),rgba(55,47,29,.95))!important;
+  border-bottom:3px solid var(--gold)!important;
+}
+.hero h1{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(2.25rem,5vw,4rem)!important;
+  letter-spacing:-.035em!important;
+}
+.hero-eyebrow,.sec-eye,.section-eyebrow{
+  color:var(--gold-dim,#8A6F32)!important;
+  letter-spacing:.11em!important;
+}
+.hero-desc{max-width:720px!important}
+.section{padding-top:46px!important;padding-bottom:46px!important}
+.sec-title,.section-title{
+  color:var(--ink)!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(1.55rem,3vw,2.05rem)!important;
+  letter-spacing:-.025em!important;
+}
+.rule{width:52px!important;height:3px!important;background:var(--gold)!important}
+.metrics,.charts-grid,.ana-grid,.insights-grid,.top-grid{
+  gap:16px!important;
+}
+.m-card,.c-card,.ana-block,.insight-card,.top-card,.stat-card,.chart-card,.analysis-card{
+  background:rgba(255,255,255,.92)!important;
+  border:1px solid var(--border)!important;
+  border-radius:16px!important;
+  box-shadow:var(--sh)!important;
+}
+.insight-card-readable .insight-meta{
+  color:var(--studio-muted)!important;
+}
+.m-card:hover,.top-card:hover,.insight-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 12px 30px rgba(43,37,24,.085)!important;
+}
+.m-card:before,.top-card.featured:before{background:var(--gold)!important}
+.chart-bg,
+div[style*="background:var(--surface-2)"]{
+  background:transparent!important;
+  border-color:var(--border)!important;
+}
+.charts-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))!important}
+.tbl-ctrl{
+  padding:12px!important;
+  background:rgba(255,255,255,.8)!important;
+  border:1px solid var(--border)!important;
+  border-radius:14px 14px 0 0!important;
+}
+.s-box,.f-btn{
+  border-color:var(--border)!important;
+  border-radius:9px!important;
+}
+.f-btn.active,.f-btn:hover{
+  color:var(--ink)!important;
+  background:var(--gold-pale)!important;
+  border-color:var(--gold)!important;
+}
+.tbl-wrap{
+  border:1px solid var(--border)!important;
+  border-top:0!important;
+  border-radius:0 0 14px 14px!important;
+  box-shadow:none!important;
+}
+thead th{
+  color:var(--ink-mid)!important;
+  background:#F0ECE2!important;
+  border-color:var(--border)!important;
+}
+tbody tr:hover{background:var(--gold-pale)!important}
+footer{background:#1D1B16!important;border-top:3px solid var(--gold)!important}
+button[onclick^="download_"]{
+  color:var(--ink)!important;
+  background:var(--gold)!important;
+  border-radius:9px!important;
+}
+@media(max-width:700px){
+  .section{padding-top:34px!important;padding-bottom:34px!important}
+  .hero{padding:38px 18px!important}
+  .m-card,.c-card,.ana-block,.insight-card,.top-card{padding:18px!important}
+}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="premium.css?v=11">
 </head>
 <body>
 
@@ -460,7 +592,7 @@
 <section class="hero">
   <div class="hero-badge">Armchair Insider Lounge</div>
   <h1>Most Popular <em>Community</em><br>Portfolio Positions</h1>
-  <p class="hero-sub">March 15 – May 10, 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
+  <p class="hero-sub">May – July 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
   <p class="hero-desc">
     A snapshot of the 100 most commonly held positions shared by members across our Buy, Sell, and Community Portfolio sections — ranked by member holdings and enriched with yield and asset class data.
   </p>
@@ -477,35 +609,35 @@
       <div class="insight-card">
         <div class="insight-label">Most Held Ticker</div>
         <div class="insight-value gold">PFFA</div>
-        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>12 member holdings</div>
+        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>16 member holdings</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Highest Yield</div>
-        <div class="insight-value green">105.25%</div>
+        <div class="insight-value green">80.64%</div>
         <div class="insight-meta">MSTY — YieldMax MSTR Option Income Strategy ETF</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Highest Avg Allocation</div>
-        <div class="insight-value gold">7.60%</div>
-        <div class="insight-meta">JAAA — Janus Henderson AAA CLO ETF</div>
+        <div class="insight-value gold">22.07%</div>
+        <div class="insight-meta">STRC — Strategy Inc. 9.0% Preferred Stock</div>
       </div>
-      <div class="insight-card">
+      <div class="insight-card insight-card-readable">
         <div class="insight-label">Most Common Type</div>
-        <div class="insight-value" style="font-size:20px;">BDC</div>
-        <div class="insight-meta">Business Development Companies<br>Most represented asset class</div>
+        <div class="insight-value gold">ETFs</div>
+        <div class="insight-meta">52 positions<br>Most represented broad asset class</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Tickers Tracked</div>
         <div class="insight-value gold">100</div>
-        <div class="insight-meta">Across 20+ distinct asset types and categories</div>
+        <div class="insight-meta">422 total member holdings across 7 broad asset types</div>
       </div>
     </div>
   </section>
 </div>
 
 <!-- CHARTS -->
-<div style="background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 0;">
-<div class="container">
+<div class="chart-bg summary-analytics" style="background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 0;">
+<div class="container summary-analytics-inner">
   <p class="section-subtitle" style="margin-bottom:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);">◆ Visual Analytics</p>
   <h2 class="section-title">Portfolio Breakdown</h2>
   <div class="divider"></div>
@@ -529,12 +661,6 @@
       <div class="chart-wrap" style="max-width:420px; margin:0 auto;"><canvas id="pieChart" height="260"></canvas></div>
     </div>
 
-    <div class="chart-card">
-      <div class="chart-title">Yield vs. Average Allocation</div>
-      <div class="chart-sub">Bubble size = member holdings · Outlier yields highlighted</div>
-      <div class="chart-wrap"><canvas id="scatterChart" height="300"></canvas></div>
-    </div>
-
   </div>
 </div>
 </div>
@@ -547,14 +673,16 @@
     <div class="divider"></div>
 
     <div class="table-controls">
-      <input type="text" class="search-box" id="searchBox" placeholder="Search ticker or name…" oninput="filterTable()">
+      <input type="text" class="search-box" id="searchBox" placeholder="Search ticker, name, or type…" oninput="filterTable()">
       <button class="filter-btn" id="btnAll" onclick="setFilter('all')" data-filter="all">All</button>
       <button class="filter-btn" id="btnBDC" onclick="setFilter('BDC')" data-filter="BDC">BDC</button>
       <button class="filter-btn" id="btnCEF" onclick="setFilter('CEF')" data-filter="CEF">CEF</button>
       <button class="filter-btn" id="btnETF" onclick="setFilter('ETF')" data-filter="ETF">ETF</button>
       <button class="filter-btn" id="btnHiYield" onclick="setFilter('hiyield')" data-filter="hiyield">Yield &gt;20%</button>
       <span class="row-count" id="rowCount">100 positions</span>
-    </div>
+    
+    <button onclick="download_mainTable()" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:#1F6B47;color:#fff;border:none;border-radius:7px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:background .15s;white-space:nowrap;" onmouseover="this.style.background='#174f34'" onmouseout="this.style.background='#1F6B47'">⬇ Download Table as Excel</button>
+  </div>
 
     <div class="table-wrap">
       <table id="mainTable">
@@ -567,6 +695,7 @@
             <th onclick="sortTable(4)" data-col="4">Avg Alloc</th>
             <th onclick="sortTable(5)" data-col="5">Yield</th>
             <th onclick="sortTable(6)" data-col="6">Type</th>
+            <th onclick="sortTable(7)" data-col="7">Payment Frequency</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -575,53 +704,10 @@
   </section>
 </div>
 
-<!-- ANALYSIS -->
-<div style="background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 0;">
-<div class="container">
-  <p class="section-subtitle" style="margin-bottom:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);">◆ Community Observations</p>
-  <h2 class="section-title">Portfolio Analysis</h2>
-  <div class="divider"></div>
-  <div class="analysis-grid">
-
-    <div class="analysis-block">
-      <h3><span class="icon">📊</span> Most Popular Positions</h3>
-      <p>PFFA leads with 12 member holdings, followed by a cluster of tickers with 9–10 holdings each: KGLD, QQQI, FSCO, CEFS, BTCI, and ASGI. The top 10 positions collectively reflect strong community preference for income-focused vehicles across a variety of structures — ETFs, CEFs, and BDCs.</p>
-    </div>
-
-    <div class="analysis-block">
-      <h3><span class="icon">🏗️</span> Dominant Asset Classes</h3>
-      <p>BDCs are the most represented category by count, with 17+ tickers including ARCC, MAIN, CSWC, HTGC, and BXSL. Covered Call ETFs — particularly the NEOS suite — are also widely held, reflecting community interest in option-income strategies layered on major indices and assets.</p>
-    </div>
-
-    <div class="analysis-block">
-      <h3><span class="icon">📈</span> High-Yield Positions</h3>
-      <p>Several tickers carry exceptional yields: MSTY at 105.25%, BLOX at 36%, KSLV at 27.54%, QDTE at 27.26%, ULTY at 65.43%, and CHPY at 45.22%. These are primarily YieldMax and option-overlay products tied to volatile underlying assets like Bitcoin and semiconductors.</p>
-      <div class="callout"><strong>Note:</strong> Elevated distribution yields often reflect return of capital or options premium capture, not organic income growth. These require closer individual evaluation.</div>
-    </div>
-
-    <div class="analysis-block">
-      <h3><span class="icon">🔍</span> Diversification Observations</h3>
-      <p>The community shows healthy spread across credit (PIMCO CEFs), infrastructure (UTF, ASGI), real estate (RLTY, IYRI), CLOs (OXLC, ECC), and international equity (IDVO, NIHI). A handful of members appear to concentrate in high-income crypto-linked products, which is worth monitoring for risk exposure.</p>
-    </div>
-
-    <div class="analysis-block">
-      <h3><span class="icon">⚖️</span> Yield ≠ Quality</h3>
-      <p>As always, a higher yield does not automatically imply a better or safer investment. Distribution sustainability, NAV erosion, leverage levels, and tax treatment vary significantly across these structures. Members are encouraged to research individual holdings thoroughly before acting on any information discussed in the community.</p>
-    </div>
-
-    <div class="analysis-block">
-      <h3><span class="icon">💡</span> Allocation Signals</h3>
-      <p>Average allocations across most tickers are modest, typically under 4%, suggesting members generally practice position-sizing discipline. JAAA stands out with the highest average allocation at 7.60%, reflecting member confidence in its lower-risk AAA CLO structure as a core holding.</p>
-    </div>
-
-  </div>
-</div>
-</div>
-
 <!-- FOOTER -->
 <footer>
   <div>
-    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; March 15 – May 10, 2026
+    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; May – July 2026
   </div>
   <div>Tickers shown are compatible with Seeking Alpha. Tickers for other websites and brokerages may vary.</div>
   <div>For discussion and educational purposes only. Not investment advice.</div>
@@ -629,111 +715,123 @@
 
 <script>
 const DATA = [
-  {rank:1,ticker:"PFFA",name:"Virtus InfraCap U.S. Preferred Stock ETF",holdings:12,alloc:3.40,yield:9.39,type:"Preferred Stock ETF"},
-  {rank:2,ticker:"KGLD",name:"Kurv Gold Enhanced Income ETF",holdings:10,alloc:2.23,yield:17.49,type:"Gold Income ETF"},
-  {rank:3,ticker:"QQQI",name:"NEOS Nasdaq-100 High Income ETF",holdings:9,alloc:6.13,yield:14.11,type:"Covered Call ETF"},
-  {rank:4,ticker:"FSCO",name:"FS Credit Opportunities Corp.",holdings:9,alloc:1.96,yield:13.58,type:"Credit CEF"},
-  {rank:5,ticker:"CEFS",name:"Saba Closed-End Funds ETF",holdings:9,alloc:3.49,yield:7.25,type:"CEF ETF"},
-  {rank:6,ticker:"BTCI",name:"NEOS Bitcoin High Income ETF",holdings:9,alloc:2.15,yield:26.36,type:"Crypto Income ETF"},
-  {rank:7,ticker:"ASGI",name:"abrdn Global Infrastructure Income Fund",holdings:9,alloc:3.20,yield:11.44,type:"Infrastructure CEF"},
-  {rank:8,ticker:"SPYI",name:"NEOS S&P 500 High Income ETF",holdings:8,alloc:3.15,yield:12.09,type:"Covered Call ETF"},
-  {rank:9,ticker:"IYRI",name:"NEOS Real Estate High Income ETF",holdings:8,alloc:1.86,yield:11.04,type:"Real Estate Income ETF"},
-  {rank:10,ticker:"IDVO",name:"Amplify CWP International Enhanced Dividend Income ETF",holdings:8,alloc:3.38,yield:5.95,type:"International Dividend ETF"},
-  {rank:11,ticker:"ARCC",name:"Ares Capital Corporation",holdings:8,alloc:3.31,yield:10.10,type:"BDC"},
-  {rank:12,ticker:"ADX",name:"Adams Diversified Equity Fund, Inc.",holdings:8,alloc:4.57,yield:7.82,type:"Equity CEF"},
-  {rank:13,ticker:"UTF",name:"Cohen & Steers Infrastructure Fund Inc",holdings:7,alloc:1.63,yield:7.34,type:"Infrastructure CEF"},
-  {rank:14,ticker:"PBDC",name:"Putnam BDC Income ETF",holdings:7,alloc:2.61,yield:11.35,type:"BDC ETF"},
-  {rank:15,ticker:"NIHI",name:"NEOS MSCI EAFE High Income ETF",holdings:7,alloc:2.52,yield:10.17,type:"Covered Call ETF"},
-  {rank:16,ticker:"KSLV",name:"Kurv Silver Enhanced Income ETF",holdings:7,alloc:2.68,yield:27.54,type:"Gold & Silver Income ETF"},
-  {rank:17,ticker:"CSWC",name:"Capital Southwest Corporation",holdings:7,alloc:2.05,yield:10.72,type:"BDC"},
-  {rank:18,ticker:"UTG",name:"Reaves Utility Income Fund",holdings:6,alloc:2.23,yield:5.65,type:"Utility CEF"},
-  {rank:19,ticker:"RLTY",name:"Cohen & Steers Real Estate Opportunities & Income Fund",holdings:6,alloc:1.40,yield:8.31,type:"Real Estate CEF"},
-  {rank:20,ticker:"PTY",name:"PIMCO Corporate & Income Opportunity Fund",holdings:6,alloc:1.99,yield:11.59,type:"Credit CEF"},
-  {rank:21,ticker:"PDI",name:"PIMCO Dynamic Income Fund",holdings:6,alloc:3.15,yield:14.94,type:"Credit CEF"},
-  {rank:22,ticker:"NML",name:"Neuberger Berman MLP & Energy Income Fund Inc.",holdings:6,alloc:2.18,yield:8.51,type:"Energy Infrastructure CEF"},
-  {rank:23,ticker:"HTGC",name:"Hercules Capital, Inc.",holdings:6,alloc:2.50,yield:11.64,type:"BDC"},
-  {rank:24,ticker:"GPIX",name:"Goldman Sachs S&P 500 Premium Income ETF",holdings:6,alloc:5.21,yield:8.00,type:"Covered Call ETF"},
-  {rank:25,ticker:"GOF",name:"Guggenheim Strategic Opportunities Fund",holdings:6,alloc:2.85,yield:18.97,type:"Credit CEF"},
-  {rank:26,ticker:"BXSL",name:"Blackstone Secured Lending Fund",holdings:6,alloc:2.05,yield:12.74,type:"BDC"},
-  {rank:27,ticker:"PCN",name:"PIMCO Corporate & Income Strategy Fund",holdings:5,alloc:2.57,yield:11.18,type:"Credit CEF"},
-  {rank:28,ticker:"MSTY",name:"YieldMax MSTR Option Income Strategy ETF",holdings:5,alloc:1.22,yield:105.25,type:"Crypto Income ETF"},
-  {rank:29,ticker:"MLPI",name:"NEOS MLP & Energy Infrastructure High Income ETF",holdings:5,alloc:2.54,yield:14.72,type:"Energy Infrastructure ETF"},
-  {rank:30,ticker:"KQQQ",name:"Kurv Technology Titans Select ETF",holdings:5,alloc:1.88,yield:14.99,type:"Covered Call ETF"},
-  {rank:31,ticker:"KIO",name:"KKR Income Opportunities Fund",holdings:5,alloc:2.94,yield:12.98,type:"High Yield Bond CEF"},
-  {rank:32,ticker:"BLOX",name:"Nicholas Crypto Income ETF",holdings:5,alloc:2.42,yield:36.00,type:"Crypto Income ETF"},
-  {rank:33,ticker:"RFI",name:"Cohen & Steers Total Return Realty Fund, Inc.",holdings:4,alloc:2.15,yield:8.22,type:"Real Estate CEF"},
-  {rank:34,ticker:"QDVO",name:"Amplify CWP Growth & Income ETF",holdings:4,alloc:2.49,yield:11.11,type:"Covered Call ETF"},
-  {rank:35,ticker:"OBDC",name:"Blue Owl Capital Corporation",holdings:4,alloc:1.69,yield:11.10,type:"BDC"},
-  {rank:36,ticker:"IWMI",name:"NEOS Russell 2000 High Income ETF",holdings:4,alloc:2.61,yield:14.47,type:"Covered Call ETF"},
-  {rank:37,ticker:"IAUI",name:"NEOS Gold High Income ETF",holdings:4,alloc:2.57,yield:12.27,type:"Gold Income ETF"},
-  {rank:38,ticker:"FDUS",name:"Fidus Investment Corporation",holdings:4,alloc:2.03,yield:11.17,type:"BDC"},
-  {rank:39,ticker:"BBDC",name:"Barings BDC, Inc.",holdings:4,alloc:2.09,yield:11.72,type:"BDC"},
-  {rank:40,ticker:"XFLT",name:"XAI Octagon Floating Rate & Alternative Income Trust",holdings:3,alloc:1.68,yield:14.06,type:"CLO Blend Fund"},
-  {rank:41,ticker:"WDI",name:"Western Asset Diversified Income Fund",holdings:3,alloc:3.81,yield:12.86,type:"Bond CEF"},
-  {rank:42,ticker:"TRIN",name:"Trinity Capital Inc.",holdings:3,alloc:2.91,yield:12.01,type:"BDC"},
-  {rank:43,ticker:"THQ",name:"abrdn Healthcare Opportunities Fund",holdings:3,alloc:1.50,yield:11.73,type:"Healthcare CEF"},
-  {rank:44,ticker:"SPE",name:"Special Opportunities Fund",holdings:3,alloc:1.35,yield:9.00,type:"Multi-Strategy CEF"},
-  {rank:45,ticker:"PFN",name:"PIMCO Income Strategy Fund II",holdings:3,alloc:1.86,yield:12.15,type:"Credit CEF"},
-  {rank:46,ticker:"PDO",name:"PIMCO Dynamic Income Opportunities Fund",holdings:3,alloc:3.98,yield:11.55,type:"Credit CEF"},
-  {rank:47,ticker:"PAXS",name:"PIMCO Access Income Fund",holdings:3,alloc:1.48,yield:12.30,type:"Credit CEF"},
-  {rank:48,ticker:"OXLC",name:"Oxford Lane Capital Corp.",holdings:3,alloc:1.09,yield:23.58,type:"CLO Equity Fund"},
-  {rank:49,ticker:"MAIN",name:"Main Street Capital Corporation",holdings:3,alloc:3.11,yield:8.00,type:"BDC"},
-  {rank:50,ticker:"KYLD",name:"Kurv High Income ETF",holdings:3,alloc:4.15,yield:25.52,type:"Covered Call ETF"},
-  {rank:51,ticker:"KCOP",name:"Kurv Copper & Mining Enhanced Income ETF",holdings:3,alloc:2.57,yield:15.84,type:"Commodity Income ETF"},
-  {rank:52,ticker:"JFR",name:"Nuveen Floating Rate Income Fund",holdings:3,alloc:1.44,yield:12.43,type:"Senior Loan Fund"},
-  {rank:53,ticker:"FSK",name:"FS KKR Capital Corp.",holdings:3,alloc:1.36,yield:18.54,type:"BDC"},
-  {rank:54,ticker:"FEPI",name:"REX FANG & Innovation Equity Premium Income ETF",holdings:3,alloc:2.63,yield:25.21,type:"Covered Call ETF"},
-  {rank:55,ticker:"EIC",name:"Eagle Point Income Company Inc.",holdings:3,alloc:1.18,yield:12.42,type:"CLO Debt Fund"},
-  {rank:56,ticker:"ECC",name:"Eagle Point Credit Company Inc.",holdings:3,alloc:1.02,yield:16.90,type:"CLO Equity Fund"},
-  {rank:57,ticker:"DX",name:"Dynex Capital, Inc.",holdings:3,alloc:3.53,yield:15.21,type:"Mortgage REIT"},
-  {rank:58,ticker:"DSU",name:"BlackRock Debt Strategies Fund, Inc.",holdings:3,alloc:1.19,yield:11.96,type:"Senior Loan Fund"},
-  {rank:59,ticker:"CLM",name:"Cornerstone Strategic Investment Fund",holdings:3,alloc:2.53,yield:18.96,type:"Equity CEF"},
-  {rank:60,ticker:"CGBD",name:"Carlyle Secured Lending, Inc.",holdings:3,alloc:2.19,yield:13.89,type:"BDC"},
-  {rank:61,ticker:"CCIF",name:"Carlyle Credit Income Fund",holdings:3,alloc:0.82,yield:22.09,type:"CLO Equity Fund"},
-  {rank:62,ticker:"BRW",name:"Saba Capital Income & Opportunities Fund",holdings:3,alloc:1.27,yield:14.83,type:"Multi-Strategy CEF"},
-  {rank:63,ticker:"BGH",name:"Barings Global Short Duration High Yield Fund",holdings:3,alloc:1.63,yield:11.95,type:"High Yield Bond CEF"},
-  {rank:64,ticker:"BCSF",name:"Bain Capital Specialty Finance, Inc.",holdings:3,alloc:2.15,yield:14.06,type:"BDC"},
-  {rank:65,ticker:"ADAMH",name:"Adamas Trust, Inc. CAL 30",holdings:3,alloc:2.36,yield:9.59,type:"Baby Bond"},
-  {rank:66,ticker:"ULTY",name:"YieldMax Ultra Option Income Strategy ETF",holdings:2,alloc:0.83,yield:65.43,type:"Covered Call ETF"},
-  {rank:67,ticker:"TYG",name:"Tortoise Energy Infrastructure Corp.",holdings:2,alloc:1.37,yield:12.30,type:"Energy Infrastructure CEF"},
-  {rank:68,ticker:"TSPY",name:"TappAlpha SPY Growth & Daily Income ETF",holdings:2,alloc:1.34,yield:14.03,type:"Covered Call ETF"},
-  {rank:69,ticker:"TSLX",name:"Sixth Street Specialty Lending, Inc.",holdings:2,alloc:0.70,yield:9.87,type:"BDC"},
-  {rank:70,ticker:"SRV",name:"NXG Cushing Midstream Energy Fund",holdings:2,alloc:1.53,yield:15.85,type:"Energy Infrastructure CEF"},
-  {rank:71,ticker:"RVT",name:"Royce Small-Cap Trust Inc.",holdings:2,alloc:2.75,yield:6.42,type:"Equity CEF"},
-  {rank:72,ticker:"QDTE",name:"Roundhill Innov-100 0DTE Covered Call Strategy ETF",holdings:2,alloc:4.98,yield:27.26,type:"Covered Call ETF"},
-  {rank:73,ticker:"PGZ",name:"Principal Real Estate Income Fund",holdings:2,alloc:1.70,yield:12.48,type:"Real Estate CEF"},
-  {rank:74,ticker:"OTF",name:"Blue Owl Technology Finance Corp.",holdings:2,alloc:1.55,yield:12.82,type:"BDC"},
-  {rank:75,ticker:"OCCI",name:"OFS Credit Company, Inc.",holdings:2,alloc:0.49,yield:17.44,type:"CLO Equity Fund"},
-  {rank:76,ticker:"NXG",name:"NXG NextGen Infrastructure Income Fund",holdings:2,alloc:0.79,yield:11.12,type:"Infrastructure CEF"},
-  {rank:77,ticker:"NPFD",name:"Nuveen Variable Rate Preferred & Income Fund",holdings:2,alloc:1.28,yield:9.68,type:"Preferred Securities CEF"},
-  {rank:78,ticker:"NBXG",name:"Neuberger Berman Next Generation Connectivity Fund",holdings:2,alloc:2.06,yield:9.42,type:"Equity CEF"},
-  {rank:79,ticker:"MSFY",name:"Kurv Yield Premium Strategy Microsoft ETF",holdings:2,alloc:1.15,yield:13.19,type:"Covered Call ETF"},
-  {rank:80,ticker:"MSDL",name:"Morgan Stanley Direct Lending Fund",holdings:2,alloc:1.13,yield:8.90,type:"BDC"},
-  {rank:81,ticker:"MFIC",name:"MidCap Financial Investment Corporation",holdings:2,alloc:2.03,yield:10.62,type:"BDC"},
-  {rank:82,ticker:"MEGI",name:"NYLI CBRE Global Infrstrctr Megatrends Term Fd",holdings:2,alloc:0.88,yield:9.82,type:"Infrastructure CEF"},
-  {rank:83,ticker:"KBDC",name:"Kayne Anderson BDC, Inc.",holdings:2,alloc:1.62,yield:10.76,type:"BDC"},
-  {rank:84,ticker:"JBBB",name:"Janus Henderson B-BBB CLO ETF",holdings:2,alloc:1.70,yield:7.63,type:"CLO ETF"},
-  {rank:85,ticker:"JAAA",name:"Janus Henderson AAA CLO ETF",holdings:2,alloc:7.60,yield:5.52,type:"AAA CLO ETF"},
-  {rank:86,ticker:"ISD",name:"PGIM High Yield Bond Fund, Inc.",holdings:2,alloc:1.03,yield:9.35,type:"High Yield Bond CEF"},
-  {rank:87,ticker:"GHY",name:"PGIM Global High Yield Fund, Inc.",holdings:2,alloc:0.80,yield:10.53,type:"High Yield Bond CEF"},
-  {rank:88,ticker:"FOF",name:"Cohen & Steers Closed-End Opportunity Fund",holdings:2,alloc:0.97,yield:7.40,type:"Multi-Strategy CEF"},
-  {rank:89,ticker:"EXG",name:"Eaton Vance Tax-Managed Global Diversified Equity Income Fund",holdings:2,alloc:1.00,yield:8.28,type:"Covered Call CEF"},
-  {rank:90,ticker:"ETV",name:"Eaton Vance Tax-Managed Buy-Write Opportunities Fund",holdings:2,alloc:1.16,yield:8.12,type:"Covered Call CEF"},
-  {rank:91,ticker:"EMO",name:"ClearBridge Energy Midstream Opportunity Fund Inc.",holdings:2,alloc:1.67,yield:8.74,type:"Energy Infrastructure CEF"},
-  {rank:92,ticker:"DSL",name:"DoubleLine Income Solutions Fund",holdings:2,alloc:4.33,yield:11.86,type:"Multi-Sector Bond CEF"},
-  {rank:93,ticker:"DHY",name:"Credit Suisse High Yield Credit Fund",holdings:2,alloc:1.02,yield:10.45,type:"High Yield Bond CEF"},
-  {rank:94,ticker:"DHF",name:"BNY Mellon High Yield Strategies Fund",holdings:2,alloc:1.09,yield:8.71,type:"High Yield Bond CEF"},
-  {rank:95,ticker:"CHPY",name:"YieldMax Semiconductor Portfolio Option Income ETF",holdings:2,alloc:5.96,yield:45.22,type:"Covered Call ETF"},
-  {rank:96,ticker:"BST",name:"BlackRock Science and Technology Trust",holdings:2,alloc:2.14,yield:6.68,type:"Technology CEF"},
-  {rank:97,ticker:"BIZD",name:"VanEck BDC Income ETF",holdings:2,alloc:1.37,yield:13.36,type:"BDC ETF"},
-  {rank:98,ticker:"BDJ",name:"BlackRock Enhanced Equity Dividend Trust",holdings:2,alloc:1.68,yield:8.07,type:"Equity Income CEF"},
-  {rank:99,ticker:"AVK",name:"Advent Convertible & Income Fund",holdings:2,alloc:2.56,yield:10.88,type:"Convertible Bond CEF"},
-  {rank:100,ticker:"ARDC",name:"Ares Dynamic Credit Allocation Fund Inc.",holdings:2,alloc:1.03,yield:10.48,type:"Multi-Sector Credit CEF"},
+  {rank:1,ticker:"PFFA",name:"Virtus InfraCap U.S. Preferred Stock ETF",holdings:16,alloc:4.13,yield:9.84,type:"ETF / preferred stocks",freq:"Monthly"},
+  {rank:2,ticker:"QQQI",name:"NEOS Nasdaq-100 High Income ETF",holdings:15,alloc:6.45,yield:14.05,type:"ETF / Nasdaq-100 option-income",freq:"Monthly"},
+  {rank:3,ticker:"MLPI",name:"NEOS MLP & Energy Infrastructure High Income ETF",holdings:14,alloc:4.45,yield:14.48,type:"ETF / MLP & energy infrastructure option-income",freq:"Monthly"},
+  {rank:4,ticker:"NIHI",name:"NEOS MSCI EAFE High Income ETF",holdings:13,alloc:4.46,yield:9.60,type:"ETF / international equity option-income",freq:"Monthly"},
+  {rank:5,ticker:"FSCO",name:"FS Credit Opportunities Corp.",holdings:12,alloc:3.02,yield:14.25,type:"CEF / multi-asset credit",freq:"Monthly"},
+  {rank:6,ticker:"SPYI",name:"NEOS S&P 500 High Income ETF",holdings:11,alloc:7.11,yield:11.99,type:"ETF / S&P 500 option-income",freq:"Monthly"},
+  {rank:7,ticker:"KGLD",name:"Kurv Gold Enhanced Income ETF",holdings:11,alloc:3.45,yield:18.54,type:"ETF / gold option-income",freq:"Monthly"},
+  {rank:8,ticker:"BTCI",name:"NEOS Bitcoin High Income ETF",holdings:11,alloc:2.14,yield:26.16,type:"ETF / bitcoin option-income",freq:"Monthly"},
+  {rank:9,ticker:"ASGI",name:"abrdn Global Infrastructure Income Fund",holdings:11,alloc:5.42,yield:10.78,type:"CEF / global infrastructure",freq:"Monthly"},
+  {rank:10,ticker:"KSLV",name:"Kurv Silver Enhanced Income ETF",holdings:10,alloc:1.83,yield:28.95,type:"ETF / silver option-income",freq:"Monthly"},
+  {rank:11,ticker:"CEFS",name:"Saba Closed-End Funds ETF",holdings:10,alloc:4.81,yield:7.20,type:"ETF / closed-end funds",freq:"Monthly"},
+  {rank:12,ticker:"ARCC",name:"Ares Capital Corporation",holdings:10,alloc:4.70,yield:10.02,type:"BDC / common stock",freq:"Quarterly"},
+  {rank:13,ticker:"PTY",name:"PIMCO Corporate & Income Opportunity Fund",holdings:9,alloc:2.92,yield:12.04,type:"CEF / corporate & mortgage credit",freq:"Monthly"},
+  {rank:14,ticker:"PBDC",name:"Putnam BDC Income ETF",holdings:9,alloc:5.16,yield:11.35,type:"ETF / BDC income",freq:"Monthly"},
+  {rank:15,ticker:"IYRI",name:"NEOS Real Estate High Income ETF",holdings:9,alloc:3.22,yield:10.93,type:"ETF / real estate option-income",freq:"Monthly"},
+  {rank:16,ticker:"IDVO",name:"Amplify CWP International Enhanced Dividend Income ETF",holdings:9,alloc:4.72,yield:5.67,type:"ETF / international dividend option-income",freq:"Monthly"},
+  {rank:17,ticker:"GPIX",name:"Goldman Sachs S&P 500 Premium Income ETF",holdings:9,alloc:7.28,yield:8.16,type:"ETF / S&P 500 option-income",freq:"Monthly"},
+  {rank:18,ticker:"GPIQ",name:"Goldman Sachs Nasdaq-100 Premium Income ETF",holdings:9,alloc:6.02,yield:10.03,type:"ETF / Nasdaq-100 option-income",freq:"Monthly"},
+  {rank:19,ticker:"ADX",name:"Adams Diversified Equity Fund, Inc.",holdings:9,alloc:5.59,yield:7.39,type:"CEF / diversified U.S. equity",freq:"Quarterly"},
+  {rank:20,ticker:"UTF",name:"Cohen & Steers Infrastructure Fund, Inc.",holdings:8,alloc:3.68,yield:7.13,type:"CEF / infrastructure",freq:"Monthly"},
+  {rank:21,ticker:"THQ",name:"abrdn Healthcare Opportunities Fund",holdings:7,alloc:2.85,yield:11.53,type:"CEF / healthcare",freq:"Monthly"},
+  {rank:22,ticker:"IWMI",name:"NEOS Russell 2000 High Income ETF",holdings:7,alloc:5.67,yield:14.42,type:"ETF / Russell 2000 option-income",freq:"Monthly"},
+  {rank:23,ticker:"IAUI",name:"NEOS Gold High Income ETF",holdings:7,alloc:3.27,yield:11.79,type:"ETF / gold option-income",freq:"Monthly"},
+  {rank:24,ticker:"HTGC",name:"Hercules Capital, Inc.",holdings:7,alloc:4.16,yield:11.63,type:"BDC / common stock",freq:"Quarterly"},
+  {rank:25,ticker:"BXSL",name:"Blackstone Secured Lending Fund",holdings:7,alloc:4.06,yield:12.93,type:"BDC / common stock",freq:"Quarterly"},
+  {rank:26,ticker:"RLTY",name:"Cohen & Steers Real Estate Opportunities and Income Fund",holdings:6,alloc:2.36,yield:8.22,type:"CEF / real estate",freq:"Monthly"},
+  {rank:27,ticker:"PDI",name:"PIMCO Dynamic Income Fund",holdings:6,alloc:3.76,yield:16.18,type:"CEF / multi-sector credit",freq:"Monthly"},
+  {rank:28,ticker:"MAIN",name:"Main Street Capital Corporation",holdings:6,alloc:3.81,yield:7.91,type:"BDC / common stock",freq:"Monthly"},
+  {rank:29,ticker:"KQQQ",name:"Kurv Technology Titans Select ETF",holdings:6,alloc:3.14,yield:14.02,type:"ETF / technology option-income",freq:"Monthly"},
+  {rank:30,ticker:"EMO",name:"ClearBridge Energy Midstream Opportunity Fund Inc.",holdings:6,alloc:4.02,yield:8.20,type:"CEF / energy midstream",freq:"Quarterly"},
+  {rank:31,ticker:"CSWC",name:"Capital Southwest Corporation",holdings:6,alloc:4.98,yield:10.54,type:"BDC / common stock",freq:"Monthly"},
+  {rank:32,ticker:"PCN",name:"PIMCO Corporate & Income Strategy Fund",holdings:5,alloc:3.20,yield:11.53,type:"CEF / corporate & mortgage credit",freq:"Monthly"},
+  {rank:33,ticker:"NML",name:"Neuberger Berman Energy Infrastructure and Income Fund Inc.",holdings:5,alloc:4.92,yield:8.16,type:"CEF / energy infrastructure",freq:"Quarterly"},
+  {rank:34,ticker:"JAAA",name:"Janus Henderson AAA CLO ETF",holdings:5,alloc:7.20,yield:5.39,type:"ETF / AAA CLO debt",freq:"Monthly"},
+  {rank:35,ticker:"UTG",name:"Reaves Utility Income Fund",holdings:4,alloc:4.00,yield:6.35,type:"CEF / utilities & infrastructure",freq:"Monthly"},
+  {rank:36,ticker:"OVL",name:"Overlay Shares Large Cap Equity ETF",holdings:4,alloc:4.43,yield:7.20,type:"ETF / U.S. large-cap option-overlay",freq:"Quarterly"},
+  {rank:37,ticker:"KCOP",name:"Kurv Copper & Mining Enhanced Income ETF",holdings:4,alloc:3.55,yield:16.31,type:"ETF / copper & mining option-income",freq:"Monthly"},
+  {rank:38,ticker:"JBBB",name:"Janus Henderson B-BBB CLO ETF",holdings:4,alloc:3.66,yield:7.16,type:"ETF / BBB CLO debt",freq:"Monthly"},
+  {rank:39,ticker:"GOF",name:"Guggenheim Strategic Opportunities Fund",holdings:4,alloc:3.00,yield:20.44,type:"CEF / multi-sector credit",freq:"Monthly"},
+  {rank:40,ticker:"FDUS",name:"Fidus Investment Corporation",holdings:4,alloc:4.30,yield:10.85,type:"BDC / common stock",freq:"Quarterly"},
+  {rank:41,ticker:"RFI",name:"Cohen & Steers Total Return Realty Fund, Inc.",holdings:3,alloc:2.79,yield:8.36,type:"CEF / real estate",freq:"Monthly"},
+  {rank:42,ticker:"QDVO",name:"Amplify CWP Growth & Income ETF",holdings:3,alloc:6.16,yield:10.60,type:"ETF / growth equity option-income",freq:"Monthly"},
+  {rank:43,ticker:"OVF",name:"Overlay Shares Foreign Equity ETF",holdings:3,alloc:2.93,yield:10.78,type:"ETF / international equity option-overlay",freq:"Quarterly"},
+  {rank:44,ticker:"ADAMH",name:"Adamas Trust, Inc. CAL 30",holdings:3,alloc:5.92,yield:9.74,type:"Exchange-traded debt / senior notes",freq:"Quarterly"},
+  {rank:45,ticker:"XSPI",name:"NEOS Boosted S&P 500 High Income ETF",holdings:2,alloc:0.61,yield:17.15,type:"ETF / S&P 500 option-income",freq:"Monthly"},
+  {rank:46,ticker:"XQQI",name:"NEOS Boosted Nasdaq-100 High Income ETF",holdings:2,alloc:0.65,yield:20.72,type:"ETF / Nasdaq-100 option-income",freq:"Monthly"},
+  {rank:47,ticker:"XBCI",name:"NEOS Boosted Bitcoin High Income ETF",holdings:2,alloc:4.76,yield:45.25,type:"ETF / bitcoin option-income",freq:"Monthly"},
+  {rank:48,ticker:"TYG",name:"Tortoise Energy Infrastructure Corporation",holdings:2,alloc:2.40,yield:13.07,type:"CEF / energy infrastructure",freq:"Quarterly"},
+  {rank:49,ticker:"TRIN",name:"Trinity Capital Inc.",holdings:2,alloc:1.33,yield:11.47,type:"BDC / common stock",freq:"Quarterly"},
+  {rank:50,ticker:"SRV",name:"NXG Cushing Midstream Energy Fund",holdings:2,alloc:5.04,yield:17.09,type:"CEF / energy midstream",freq:"Monthly"},
+  {rank:51,ticker:"PTA",name:"Cohen & Steers Tax-Advantaged Preferred Securities and Income Fund",holdings:2,alloc:5.00,yield:8.48,type:"CEF / preferred securities",freq:"Monthly"},
+  {rank:52,ticker:"PFN",name:"PIMCO Income Strategy Fund II",holdings:2,alloc:2.00,yield:12.07,type:"CEF / multi-sector credit",freq:"Monthly"},
+  {rank:53,ticker:"PDO",name:"PIMCO Dynamic Income Opportunities Fund",holdings:2,alloc:6.05,yield:11.64,type:"CEF / multi-sector credit",freq:"Monthly"},
+  {rank:54,ticker:"OTF",name:"Blue Owl Technology Finance Corp.",holdings:2,alloc:2.98,yield:13.86,type:"BDC / technology finance",freq:"Quarterly"},
+  {rank:55,ticker:"NVG",name:"Nuveen AMT-Free Municipal Credit Income Fund",holdings:2,alloc:5.50,yield:7.48,type:"CEF / municipal bonds",freq:"Monthly"},
+  {rank:56,ticker:"NMZ",name:"Nuveen Municipal High Income Opportunity Fund",holdings:2,alloc:4.50,yield:7.62,type:"CEF / high-yield municipal bonds",freq:"Monthly"},
+  {rank:57,ticker:"NEHI",name:"NEOS Ethereum High Income ETF",holdings:2,alloc:5.09,yield:30.91,type:"ETF / Ethereum option-income",freq:"Monthly"},
+  {rank:58,ticker:"MSTY",name:"YieldMax MSTR Option Income Strategy ETF",holdings:2,alloc:0.10,yield:80.64,type:"ETF / MSTR option-income",freq:"Weekly"},
+  {rank:59,ticker:"MSFY",name:"Kurv Yield Premium Strategy Microsoft ETF",holdings:2,alloc:4.29,yield:14.83,type:"ETF / MSFT option-income",freq:"Monthly"},
+  {rank:60,ticker:"KLIP",name:"KraneShares China Internet and Covered Call Strategy ETF",holdings:2,alloc:3.26,yield:29.46,type:"ETF / China internet option-income",freq:"Monthly"},
+  {rank:61,ticker:"GAB",name:"The Gabelli Equity Trust Inc.",holdings:2,alloc:9.00,yield:10.66,type:"CEF / diversified U.S. equity",freq:"Monthly"},
+  {rank:62,ticker:"EPR",name:"EPR Properties",holdings:2,alloc:0.68,yield:5.98,type:"REIT / experiential real estate",freq:"Monthly"},
+  {rank:63,ticker:"EOS",name:"Eaton Vance Enhanced Equity Income Fund II",holdings:2,alloc:2.96,yield:8.41,type:"CEF / equity option-income",freq:"Quarterly"},
+  {rank:64,ticker:"EIC",name:"Eagle Point Income Company Inc.",holdings:2,alloc:1.59,yield:14.36,type:"CEF / CLO debt",freq:"Monthly"},
+  {rank:65,ticker:"EGGY",name:"NestYield Dynamic Income ETF",holdings:2,alloc:4.06,yield:33.11,type:"ETF / dynamic option-income",freq:"Monthly"},
+  {rank:66,ticker:"DSL",name:"DoubleLine Income Solutions Fund",holdings:2,alloc:2.08,yield:12.42,type:"CEF / multi-sector credit",freq:"Monthly"},
+  {rank:67,ticker:"CSQ",name:"Calamos Strategic Total Return Fund",holdings:2,alloc:4.69,yield:8.02,type:"CEF / multi-asset total return",freq:"Monthly"},
+  {rank:68,ticker:"CLOZ",name:"Panagram BBB-B CLO ETF",holdings:2,alloc:4.90,yield:7.32,type:"ETF / BBB-B CLO debt",freq:"Monthly"},
+  {rank:69,ticker:"BLOX",name:"Nicholas Crypto Income ETF",holdings:2,alloc:2.72,yield:36.00,type:"ETF / crypto option-income",freq:"Monthly"},
+  {rank:70,ticker:"BCX",name:"BlackRock Resources & Commodities Strategy Trust",holdings:2,alloc:1.07,yield:7.34,type:"CEF / natural resources",freq:"Quarterly"},
+  {rank:71,ticker:"AOD",name:"abrdn Total Dynamic Dividend Fund",holdings:2,alloc:2.89,yield:12.62,type:"CEF / global dividend equity",freq:"Monthly"},
+  {rank:72,ticker:"AEF",name:"abrdn Emerging Markets Equity Income Fund, Inc.",holdings:2,alloc:4.00,yield:10.72,type:"CEF / emerging-markets equity",freq:"Monthly"},
+  {rank:73,ticker:"ADAMO",name:"Adamas Trust, Inc. 9.250% Senior Notes Due 2031",holdings:2,alloc:7.13,yield:9.25,type:"Exchange-traded debt / senior notes",freq:"Quarterly"},
+  {rank:74,ticker:"ZAAA",name:"BMO AAA CLO ETF",holdings:1,alloc:0.84,yield:5.13,type:"ETF / AAA CLO debt (Canadian)",freq:"Monthly"},
+  {rank:75,ticker:"YYY",name:"Amplify High Income ETF",holdings:1,alloc:0.67,yield:12.57,type:"ETF / closed-end funds",freq:"Monthly"},
+  {rank:76,ticker:"XLUI",name:"State Street Utilities Select Sector SPDR Premium Income ETF",holdings:1,alloc:0.69,yield:11.09,type:"ETF / utilities option-income",freq:"Monthly"},
+  {rank:77,ticker:"XFLT",name:"XAI Floating Rate & Alternative Income Trust",holdings:1,alloc:1.05,yield:15.77,type:"CEF / floating-rate & alternative credit",freq:"Monthly"},
+  {rank:78,ticker:"WMTI",name:"REX WMT Growth & Income ETF",holdings:1,alloc:0.18,yield:31.14,type:"ETF / WMT option-income",freq:"Weekly"},
+  {rank:79,ticker:"WEEL",name:"Peerless Option Income Wheel ETF",holdings:1,alloc:2.01,yield:11.86,type:"ETF / equity option-income",freq:"Monthly"},
+  {rank:80,ticker:"WDI",name:"Western Asset Diversified Income Fund",holdings:1,alloc:6.46,yield:13.13,type:"CEF / multi-sector credit",freq:"Monthly"},
+  {rank:81,ticker:"VICI",name:"VICI Properties Inc.",holdings:1,alloc:0.01,yield:6.70,type:"REIT / gaming & experiential real estate",freq:"Quarterly"},
+  {rank:82,ticker:"USOY",name:"Defiance Oil Enhanced Options Income ETF",holdings:1,alloc:0.02,yield:40.00,type:"ETF / oil option-income",freq:"Weekly"},
+  {rank:83,ticker:"ULTY",name:"YieldMax Ultra Option Income Strategy ETF",holdings:1,alloc:0.83,yield:60.59,type:"ETF / diversified option-income",freq:"Weekly"},
+  {rank:84,ticker:"TUGN",name:"STF Tactical Growth & Income ETF",holdings:1,alloc:6.00,yield:11.21,type:"ETF / tactical growth & option-income",freq:"Monthly"},
+  {rank:85,ticker:"TSYX",name:"TSPY LIFT ETF",holdings:1,alloc:0.19,yield:15.51,type:"ETF / daily leveraged equity strategy",freq:"Weekly"},
+  {rank:86,ticker:"TSLP",name:"Kurv Yield Premium Strategy Tesla ETF",holdings:1,alloc:1.89,yield:22.41,type:"ETF / TSLA option-income",freq:"Monthly"},
+  {rank:87,ticker:"TLTW",name:"iShares 20+ Year Treasury Bond BuyWrite Strategy ETF",holdings:1,alloc:10.28,yield:11.06,type:"ETF / long-Treasury option-income",freq:"Monthly"},
+  {rank:88,ticker:"TLTI",name:"NEOS Enhanced Income 20+ Year Treasury Bond ETF",holdings:1,alloc:2.00,yield:6.03,type:"ETF / long-Treasury option-income",freq:"Monthly"},
+  {rank:89,ticker:"THW",name:"abrdn World Healthcare Fund",holdings:1,alloc:0.19,yield:10.55,type:"CEF / global healthcare",freq:"Monthly"},
+  {rank:90,ticker:"TDAX",name:"TDAQ LIFT ETF",holdings:1,alloc:0.20,yield:19.11,type:"ETF / daily leveraged equity strategy",freq:"Weekly"},
+  {rank:91,ticker:"TDAQ",name:"TappAlpha Innovation 100 Growth & Daily Income ETF",holdings:1,alloc:0.35,yield:17.10,type:"ETF / Nasdaq-100 growth & option-income",freq:"Weekly"},
+  {rank:92,ticker:"T",name:"AT&T Inc.",holdings:1,alloc:1.90,yield:5.09,type:"Common stock / telecommunications",freq:"Quarterly"},
+  {rank:93,ticker:"STWD",name:"Starwood Property Trust, Inc.",holdings:1,alloc:0.19,yield:11.29,type:"Mortgage REIT / common stock",freq:"Quarterly"},
+  {rank:94,ticker:"STRC",name:"Strategy Inc. Variable Rate Series A Perpetual Stretch Preferred Stock",holdings:1,alloc:22.07,yield:14.07,type:"Preferred stock / variable-rate perpetual",freq:"Monthly"},
+  {rank:95,ticker:"STK",name:"Columbia Seligman Premium Technology Growth Fund",holdings:1,alloc:1.50,yield:5.52,type:"CEF / technology equity option-income",freq:"Quarterly"},
+  {rank:96,ticker:"SRLN",name:"State Street Blackstone Senior Loan ETF",holdings:1,alloc:1.29,yield:7.40,type:"ETF / senior loans",freq:"Monthly"},
+  {rank:97,ticker:"SPLT",name:"Brompton Split Corp. Preferred Share ETF",holdings:1,alloc:1.55,yield:5.98,type:"ETF / split-share preferred stocks (Canadian)",freq:"Monthly"},
+  {rank:98,ticker:"SPFD",name:"Mulvihill Enhanced Split Preferred Share ETF",holdings:1,alloc:1.25,yield:10.13,type:"ETF / split-share preferred stocks (Canadian)",freq:"Monthly"},
+  {rank:99,ticker:"SOXY",name:"YieldMax Target 12™ Semiconductor Option Income ETF",holdings:1,alloc:0.34,yield:12.00,type:"ETF / semiconductor option-income",freq:"Monthly"},
+  {rank:100,ticker:"SLJY",name:"Amplify SILJ Junior Silver Miners Covered Call ETF",holdings:1,alloc:0.48,yield:22.80,type:"ETF / junior silver miners option-income",freq:"Monthly"},
 ];
 
 // ── TABLE ──
 let sortCol = 0, sortDir = 1;
 let currentFilter = 'all';
+
+function broadType(type) {
+  const t = type.toLowerCase().trim();
+  if (t.startsWith('etf') || t.includes(' etf') || t.endsWith('etf')) return 'ETFs';
+  if (t.startsWith('cef') || t.includes(' cef')) return 'CEFs';
+  if (t.startsWith('bdc') || t.includes(' bdc')) return 'BDCs';
+  if (t.startsWith('reit') || t.includes(' reit')) return 'REITs';
+  if (t.startsWith('preferred') || t.includes('preferred stock')) return 'Preferreds';
+  if (t.includes('exchange-traded debt') || t.includes('senior notes')) return 'Debt / Notes';
+  if (t.includes('common stock') || t.includes('equity')) return 'Equities';
+  return 'Other';
+}
 
 function yieldClass(y) {
   if (y >= 50) return 'yield-extreme';
@@ -761,8 +859,9 @@ function renderTable(rows) {
         </div>
       </td>
       <td><span class="alloc-val">${d.alloc.toFixed(2)}%</span></td>
-      <td><span class="yield-val ${yieldClass(d.yield)}">${d.yield.toFixed(2)}%</span>${yieldTag(d.yield)}</td>
+      <td><span class="yield-cell"><span class="yield-val ${yieldClass(d.yield)}">${d.yield.toFixed(2)}%</span>${yieldTag(d.yield)}</span></td>
       <td><span class="type-pill">${d.type}</span></td>
+      <td><span class="freq-pill">${d.freq}</span></td>
     </tr>
   `).join('');
   document.getElementById('rowCount').textContent = `${rows.length} position${rows.length!==1?'s':''}`;
@@ -771,10 +870,10 @@ function renderTable(rows) {
 function getFilteredData() {
   let rows = [...DATA];
   const q = document.getElementById('searchBox').value.toLowerCase().trim();
-  if (q) rows = rows.filter(d => d.ticker.toLowerCase().includes(q) || d.name.toLowerCase().includes(q));
-  if (currentFilter === 'BDC') rows = rows.filter(d => d.type.includes('BDC'));
-  else if (currentFilter === 'CEF') rows = rows.filter(d => d.type.includes('CEF'));
-  else if (currentFilter === 'ETF') rows = rows.filter(d => d.type.includes('ETF'));
+  if (q) rows = rows.filter(d => d.ticker.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.type.toLowerCase().includes(q) || d.freq.toLowerCase().includes(q));
+  if (currentFilter === 'BDC') rows = rows.filter(d => broadType(d.type) === 'BDCs / BDC ETFs');
+  else if (currentFilter === 'CEF') rows = rows.filter(d => broadType(d.type) === 'CEFs');
+  else if (currentFilter === 'ETF') rows = rows.filter(d => broadType(d.type) === 'ETFs');
   else if (currentFilter === 'hiyield') rows = rows.filter(d => d.yield >= 20);
   return rows;
 }
@@ -792,7 +891,7 @@ function sortTable(col) {
   ths.forEach((th, i) => { th.classList.remove('sort-asc','sort-desc'); });
   if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
   ths[col].classList.add(sortDir===1?'sort-asc':'sort-desc');
-  const keys = ['rank','ticker','name','holdings','alloc','yield','type'];
+  const keys = ['rank','ticker','name','holdings','alloc','yield','type','freq'];
   const rows = getFilteredData().sort((a,b) => {
     let av = a[keys[col]], bv = b[keys[col]];
     if (typeof av === 'string') return av.localeCompare(bv) * sortDir;
@@ -863,12 +962,9 @@ new Chart(document.getElementById('yieldChart'), {
 
 // 3. Asset Type Donut
 const typeMap = {};
-DATA.forEach(d => { typeMap[d.type] = (typeMap[d.type]||0)+1; });
-const sorted = Object.entries(typeMap).sort((a,b)=>b[1]-a[1]);
-const topTypes = sorted.slice(0,7);
-const otherCount = sorted.slice(7).reduce((s,[,v])=>s+v,0);
-if (otherCount > 0) topTypes.push(['Other', otherCount]);
-const PALETTE = [GOLD,'#B8860B','#2E7D5A','#1E3A5F','#6B3A2A','#4A5568','#805AD5','#C4A882'];
+DATA.forEach(d => { const c = broadType(d.type); typeMap[c] = (typeMap[c]||0)+1; });
+const topTypes = Object.entries(typeMap).sort((a,b)=>b[1]-a[1]);
+const PALETTE = [GOLD,'#D9A441','#B98032','#F3D98A','#8F6A2D','#D47B37','#C7AA6A','#9D7840'];
 new Chart(document.getElementById('pieChart'), {
   type: 'doughnut',
   data: {
@@ -891,44 +987,30 @@ new Chart(document.getElementById('pieChart'), {
   }
 });
 
-// 4. Scatter: Yield vs Alloc
-const scatterData = DATA.filter(d=>d.yield<110).map(d=>({
-  x: d.alloc,
-  y: d.yield,
-  r: Math.max(3, d.holdings * 1.8),
-  label: d.ticker,
-  holdings: d.holdings,
-  extreme: d.yield >= 50,
-  high: d.yield >= 20,
-}));
-new Chart(document.getElementById('scatterChart'), {
-  type: 'bubble',
-  data: {
-    datasets:[{
-      label:'Positions',
-      data: scatterData,
-      backgroundColor: scatterData.map(d => d.extreme ? 'rgba(155,28,28,0.55)' : d.high ? 'rgba(180,83,9,0.55)' : 'rgba(46,125,90,0.50)'),
-      borderColor: scatterData.map(d => d.extreme ? RED : d.high ? AMBER : GREEN),
-      borderWidth: 1.5,
-    }]
-  },
-  options: {
-    responsive:true, maintainAspectRatio:false,
-    plugins: {
-      legend:{display:false},
-      tooltip:{callbacks:{
-        label:ctx=>{
-          const d=ctx.raw;
-          return [`${d.label}`,`Yield: ${d.y.toFixed(2)}%`,`Alloc: ${d.x.toFixed(2)}%`,`Holdings: ${d.holdings}`];
-        }
-      }}
-    },
-    scales: {
-      x:{ title:{display:true,text:'Avg Allocation (%)',font:{size:12}}, grid:{color:'#EDE5D4'}, border:{display:false}, ticks:{callback:v=>v+'%'} },
-      y:{ title:{display:true,text:'Yield (%)',font:{size:12}}, beginAtZero:true, grid:{color:'#EDE5D4'}, border:{display:false}, ticks:{callback:v=>v+'%'} }
-    }
-  }
-});
 </script>
+
+<script>
+function download_mainTable() {
+  var headers = ['#', 'Ticker', 'Name', 'Holdings', 'Avg Alloc', 'Yield', 'Type', 'Payment Frequency'];
+  var rows = [headers];
+  var tbody = document.getElementById('tableBody');
+  var trs = tbody ? tbody.querySelectorAll('tr') : [];
+  trs.forEach(function(tr) {
+    var row = [];
+    tr.querySelectorAll('td').forEach(function(td, i) {
+      var text = td.innerText.trim();
+      row.push(text);
+    });
+    if (row.length > 0) rows.push(row);
+  });
+  var ws = XLSX.utils.aoa_to_sheet(rows);
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Report');
+  XLSX.writeFile(wb, 'CommunityPortfolio_May-July_2026.xlsx');
+}
+</script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="premium.js?v=11"></script>
 </body>
 </html>
