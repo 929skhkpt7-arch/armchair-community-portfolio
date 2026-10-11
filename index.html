@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -612,7 +611,7 @@ button[onclick^="download_"]{
 <section class="hero">
   <div class="hero-badge">Armchair Insider Lounge</div>
   <h1>Most Popular <em>Community</em><br>Portfolio Positions</h1>
-  <p class="hero-sub">July – September, 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
+  <p class="hero-sub">July 11 – September 11, 2026 &nbsp;·&nbsp; Top 100 Tickers</p>
   <p class="hero-desc">
     A snapshot of the 100 most commonly held positions shared by members across our Buy, Sell, and Community Portfolio sections — ranked by member holdings and enriched with yield and asset class data.
   </p>
@@ -629,12 +628,12 @@ button[onclick^="download_"]{
       <div class="insight-card">
         <div class="insight-label">Most Held Ticker</div>
         <div class="insight-value gold">PFFA</div>
-        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>14 member holdings</div>
+        <div class="insight-meta">Virtus InfraCap U.S. Preferred Stock ETF<br>12 member holdings</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Highest Yield</div>
-        <div class="insight-value green">100.32%</div>
-        <div class="insight-meta">MSTY — YieldMax MSTR Option Income Strategy ETF</div>
+        <div class="insight-value green">56.35%</div>
+        <div class="insight-meta">AMDW — Roundhill AMD WeeklyPay ETF</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Highest Avg Allocation</div>
@@ -644,12 +643,12 @@ button[onclick^="download_"]{
       <div class="insight-card insight-card-readable">
         <div class="insight-label">Most Common Type</div>
         <div class="insight-value gold">ETFs</div>
-        <div class="insight-meta">38 positions<br>Most represented broad asset class</div>
+        <div class="insight-meta">40 positions<br>Most represented broad asset class</div>
       </div>
       <div class="insight-card">
         <div class="insight-label">Tickers Tracked</div>
         <div class="insight-value gold">100</div>
-        <div class="insight-meta">469 total member holdings across 8 broad asset types</div>
+        <div class="insight-meta">421 total member holdings across 7 broad asset types</div>
       </div>
     </div>
   </section>
@@ -702,7 +701,7 @@ button[onclick^="download_"]{
       <span class="row-count" id="rowCount">100 positions</span>
     
     <button onclick="download_mainTable()" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:#1F6B47;color:#fff;border:none;border-radius:7px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:background .15s;white-space:nowrap;" onmouseover="this.style.background='#174f34'" onmouseout="this.style.background='#1F6B47'">⬇ Download Table as Excel</button>
-    <a class="pdf-btn" href="COMMUNITY_PORTFOLIO_SUMMARY-TOP_100-PORTFOLIO(July-September).pdf" target="_blank" rel="noopener">▣ View PDF</a>
+    <a class="pdf-btn" href="COMMUNITY PORTFOLIO SUMMARY - TOP 100 PORTFOLIO (July 11 - October 11).pdf" target="_blank" rel="noopener">▣ View PDF</a>
   </div>
 
     <div class="table-wrap">
@@ -728,7 +727,7 @@ button[onclick^="download_"]{
 <!-- FOOTER -->
 <footer>
   <div>
-    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; July – September, 2026
+    <span>Armchair Insider Lounge</span> &nbsp;·&nbsp; Community Portfolio Report &nbsp;·&nbsp; July 11 – September 11, 2026
   </div>
   <div>Tickers shown are compatible with Seeking Alpha. Tickers for other websites and brokerages may vary.</div>
   <div>For discussion and educational purposes only. Not investment advice.</div>
@@ -852,6 +851,115 @@ DATA = COMMUNITY_RAW_UPDATED.trim().split('\n').map(line => {
     type,
     freq
   };
+});
+
+// October 11, 2026 community portfolio update
+const COMMUNITY_RAW_OCT11 = `
+1	PFFA	Virtus InfraCap U.S. Preferred Stock ETF	12	4.15%	10.57%	Preferred Stock ETF	Monthly
+2	IWMI	NEOS Russell 2000 High Income ETF	12	2.03%	14.60%	Covered Call ETF	Monthly
+3	ARCC	Ares Capital Corporation	12	3.84%	10.34%	BDC	Quarterly
+4	QQQI	NEOS Nasdaq-100 High Income ETF	11	4.11%	14.28%	Covered Call ETF	Monthly
+5	MLPI	NEOS MLP & Energy Infrastructure High Income ETF	10	2.45%	14.34%	Covered Call ETF (Energy/MLP)	Monthly
+6	SPYI	NEOS S&P 500 High Income ETF	9	3.71%	12.21%	Covered Call ETF	Monthly
+7	PTY	PIMCO Corporate & Income Opportunity Fund	9	1.73%	13.00%	Multi-Sector Bond CEF	Monthly
+8	MAIN	Main Street Capital Corporation	9	1.83%	8.15%	BDC	Monthly
+9	CSWC	Capital Southwest Corporation	9	2.73%	10.88%	BDC	Quarterly
+10	PDI	PIMCO Dynamic Income Fund	8	2.38%	18.43%	Multi-Sector Bond CEF	Monthly
+11	IYRI	NEOS Real Estate High Income ETF	8	2.39%	11.00%	Covered Call ETF (Real Estate)	Monthly
+12	GPIQ	Goldman Sachs Nasdaq-100 Core Premium Income ETF	8	3.28%	9.86%	Covered Call ETF	Monthly
+13	FSCO	FS Credit Opportunities Corp.	8	3.34%	14.20%	Credit CEF	Monthly
+14	UTG	Reaves Utility Income Fund	7	2.05%	6.92%	Utilities Equity CEF	Quarterly
+15	PCN	PIMCO Corporate & Income Strategy Fund	7	1.59%	12.40%	Multi-Sector Bond CEF	Monthly
+16	PBDC	Putnam BDC Income ETF	7	2.19%	11.64%	BDC ETF	Monthly
+17	OVL	Overlay Shares Large Cap Equity ETF	7	1.64%	8.89%	Options Overlay ETF	Quarterly
+18	NIHI	NEOS MSCI EAFE High Income ETF	7	2.64%	9.74%	Covered Call ETF (International)	Monthly
+19	KSLV	Kurv Silver Enhanced Income ETF	7	2.60%	30.88%	Covered Call ETF (Silver)	Monthly
+20	KGLD	Kurv Gold Enhanced Income ETF	7	2.74%	16.55%	Covered Call ETF (Gold)	Monthly
+21	IDVO	Amplify International Enhanced Dividend Income ETF	7	2.83%	6.14%	Covered Call ETF (International)	Monthly
+22	HTGC	Hercules Capital, Inc.	7	1.33%	11.39%	BDC	Quarterly
+23	CEFS	Saba Closed-End Funds ETF	7	2.25%	7.79%	CEF Fund-of-Funds ETF	Monthly
+24	ADX	Adams Diversified Equity Fund	7	3.93%	7.64%	Equity CEF	Quarterly
+25	UTF	Cohen & Steers Infrastructure Fund	6	2.50%	7.69%	Infrastructure Equity CEF	Quarterly
+26	TRIN	Trinity Capital Inc.	6	2.70%	11.93%	BDC	Quarterly
+27	THQ	abrdn Healthcare Opportunities Fund	6	1.24%	11.42%	Healthcare Equity CEF	Quarterly
+28	GPIX	Goldman Sachs S&P 500 Core Premium Income ETF	6	2.21%	8.17%	Covered Call ETF	Monthly
+29	BXSL	Blackstone Secured Lending Fund	6	1.44%	12.91%	BDC	Quarterly
+30	BTCI	NEOS Bitcoin High Income ETF	6	1.66%	28.00%	Covered Call ETF (Bitcoin)	Monthly
+31	ASGI	abrdn Global Infrastructure Income Fund	6	1.46%	13.72%	Infrastructure CEF	Quarterly
+32	WDI	Western Asset Diversified Income Fund	5	1.22%	15.22%	Multi-Sector Bond CEF	Monthly
+33	TYG	Tortoise Energy Infrastructure Corp.	5	2.74%	14.42%	Energy/MLP CEF	Quarterly
+34	JAAA	Janus Henderson AAA CLO ETF	5	4.42%	5.29%	CLO ETF	Monthly
+35	FDUS	Fidus Investment Corporation	5	1.46%	11.23%	BDC	Quarterly
+36	RLTY	Cohen & Steers Real Estate Opportunities and Income Fund	4	1.19%	9.54%	Real Estate CEF	Monthly
+37	QDVO	Amplify CWP Growth & Income ETF	4	1.77%	11.19%	Covered Call ETF	Monthly
+38	PFN	PIMCO Income Strategy Fund II	4	1.06%	13.79%	Multi-Sector Bond CEF	Monthly
+39	O	Realty Income Corporation	4	1.80%	6.01%	REIT	Monthly
+40	KYLD	Kurv High Income ETF	4	3.66%	23.70%	Covered Call ETF	Monthly
+41	KQQQ	Kurv Technology Titans Select ETF	4	1.07%	14.48%	Covered Call ETF (Tech)	Monthly
+42	KCOP	Kurv Copper & Mining Enhanced Income ETF	4	1.24%	15.89%	Covered Call ETF (Copper/Mining)	Monthly
+43	JBBB	Janus Henderson B-BBB CLO ETF	4	1.50%	6.91%	CLO ETF	Monthly
+44	IAUI	NEOS Gold High Income ETF	4	0.99%	12.15%	Covered Call ETF (Gold)	Monthly
+45	HQL	abrdn Life Sciences Investors	4	1.20%	13.66%	Healthcare Equity CEF	Quarterly
+46	GOF	Guggenheim Strategic Opportunities Fund	4	1.86%	24.75%	Multi-Sector Bond CEF	Monthly
+47	AOD	abrdn Total Dynamic Dividend Fund	4	1.98%	13.00%	Global Equity CEF	Monthly
+48	ADAMH	Adamas Trust, Inc. 9.875% Senior Notes due 2030	4	1.93%	9.84%	Baby Bond (Senior Notes)	Quarterly
+49	RQI	Cohen & Steers Quality Income Realty Fund	3	1.90%	9.62%	Real Estate CEF	Monthly
+50	OBDC	Blue Owl Capital Corporation	3	1.12%	12.46%	BDC	Quarterly
+51	NXG	NXG NextGen Infrastructure Income Fund	3	2.14%	12.72%	Infrastructure CEF	Quarterly
+52	FOXY	Simplify Currency Strategy ETF	3	0.37%	10.16%	Currency/Options Income ETF	Monthly
+53	EMO	ClearBridge Energy Midstream Opportunity Fund Inc.	3	3.02%	9.61%	Energy/Midstream CEF	Quarterly
+54	DSL	DoubleLine Income Solutions Fund	3	2.22%	13.32%	Multi-Sector Bond CEF	Monthly
+55	CSQ	Calamos Strategic Total Return Fund	3	1.49%	7.84%	Multi-Asset CEF (Equity/Convertibles)	Monthly
+56	CSHI	NEOS Enhanced Income 1-3 Month T-Bill ETF	3	6.39%	5.00%	T-Bill Income ETF	Monthly
+57	BLOX	Nicholas Crypto Income ETF	3	1.86%	36.00%	Crypto Income ETF	Monthly
+58	XQQI	NEOS Boosted Nasdaq-100 High Income ETF	2	3.02%	21.04%	Covered Call ETF	Monthly
+59	WES	Western Midstream Partners, LP	2	0.52%	8.15%	MLP	Quarterly
+60	VICI	VICI Properties Inc.	2	0.99%	8.04%	REIT	Quarterly
+61	TSPY	TappAlpha S&P 500 Growth & Daily Income ETF	2	1.19%	13.94%	Covered Call ETF	Weekly
+62	TSLX	Sixth Street Specialty Lending, Inc.	2	0.91%	9.91%	BDC	Quarterly
+63	TOPW	Roundhill Top WeeklyPay ETF	2	5.79%	38.26%	WeeklyPay Single-Stock ETF	Weekly
+64	THW	abrdn World Healthcare Fund	2	1.14%	11.73%	Healthcare Equity CEF	Quarterly
+65	SRV	NXG Cushing Midstream Energy Fund	2	0.97%	18.30%	Energy/Midstream CEF	Quarterly
+66	RFI	Cohen & Steers Total Return Realty Fund	2	1.83%	9.11%	Real Estate CEF	Quarterly
+67	RDVI	FT Vest Rising Dividend Achievers Target Income ETF	2	0.45%	8.16%	Covered Call ETF (Dividend)	Monthly
+68	NVII	REX NVDA Growth & Income ETF	2	2.99%	29.63%	Single-Stock Covered Call ETF	Monthly
+69	NML	Neuberger Energy Infrastructure and Income Fund Inc.	2	0.49%	8.22%	Energy/Midstream CEF	Quarterly
+70	NLY	Annaly Capital Management, Inc.	2	1.68%	16.39%	Mortgage REIT	Quarterly
+71	MSFY	YieldMax MSFT Option Income Strategy ETF	2	3.23%	11.69%	Single-Stock Covered Call ETF	Monthly
+72	MPLX	MPLX LP	2	1.47%	7.65%	MLP	Quarterly
+73	LGI	Lazard Global Total Return and Income Fund	2	0.89%	10.76%	Global Equity CEF	Monthly
+74	KIO	KKR Income Opportunities Fund	2	1.09%	14.38%	Credit CEF	Monthly
+75	JRI	Nuveen Real Asset Income and Growth Fund	2	2.64%	15.08%	Real Assets CEF	Monthly
+76	JEPQ	JPMorgan Nasdaq Equity Premium Income ETF	2	2.68%	11.72%	Covered Call ETF	Monthly
+77	HQH	abrdn Healthcare Investors	2	1.31%	13.25%	Healthcare Equity CEF	Quarterly
+78	GAB	The Gabelli Equity Trust Inc.	2	2.83%	11.52%	Equity CEF	Quarterly
+79	ET	Energy Transfer LP	2	1.51%	6.66%	MLP	Quarterly
+80	EPR	EPR Properties	2	1.67%	6.80%	REIT	Monthly
+81	EPD	Enterprise Products Partners L.P.	2	1.69%	6.21%	MLP	Quarterly
+82	ENB	Enbridge Inc.	2	0.96%	5.85%	Midstream Stock	Quarterly
+83	DX	Dynex Capital, Inc.	2	1.71%	18.78%	Mortgage REIT	Monthly
+84	DNP	DNP Select Income Fund Inc.	2	1.38%	7.89%	Utilities Equity CEF	Monthly
+85	CLOZ	Eldridge BBB-B CLO ETF	2	1.18%	7.04%	CLO ETF	Monthly
+86	CII	BlackRock Enhanced Large Cap Core Fund, Inc.	2	2.79%	6.95%	Equity CEF (Covered Call)	Monthly
+87	CHPY	YieldMax Semiconductor Portfolio Option Income ETF	2	3.76%	42.55%	Covered Call ETF (Semiconductors)	Weekly
+88	BME	BlackRock Health Sciences Trust	2	1.24%	7.16%	Healthcare Equity CEF	Quarterly
+89	BGR	BlackRock Energy and Resources Trust	2	1.21%	6.59%	Energy Equity CEF	Monthly
+90	ARI	Apollo Commercial Real Estate Finance, Inc.	2	0.62%	16.03%	Mortgage REIT	Quarterly
+91	ARDC	Ares Dynamic Credit Allocation Fund, Inc.	2	0.82%	11.79%	Senior Loan/Credit CEF	Monthly
+92	AGNC	AGNC Investment Corp.	2	3.69%	16.61%	Mortgage REIT	Monthly
+93	MO	Altria Group, Inc.	1	40.14%	6.19%	Dividend Stock (Consumer Staples)	Quarterly
+94	IWMY	Defiance R2000 Enhanced Options Income ETF	1	23.20%	30.00%	Covered Call ETF	Monthly
+95	AMDW	Roundhill AMD WeeklyPay ETF	1	11.78%	56.35%	WeeklyPay Single-Stock ETF	Weekly
+96	USHY	iShares Broad USD High Yield Corporate Bond ETF	1	8.02%	7.15%	High Yield Bond ETF	Monthly
+97	PLTW	Roundhill PLTR WeeklyPay ETF	1	5.44%	44.90%	WeeklyPay Single-Stock ETF	Weekly
+98	NEHI	NEOS Ethereum High Income ETF	1	5.43%	34.38%	Covered Call ETF (Ethereum)	Monthly
+99	GOOW	Roundhill GOOGL WeeklyPay ETF	1	4.88%	31.41%	WeeklyPay Single-Stock ETF	Weekly
+100	ECAT	BlackRock ESG Capital Allocation Term Trust	1	4.72%	22.46%	Multi-Asset CEF	Monthly
+`;
+
+DATA = COMMUNITY_RAW_OCT11.trim().split('\n').map(line => {
+  const [rank,ticker,name,holdings,alloc,yieldPct,type,freq] = line.split('\t');
+  return {rank:Number(rank),ticker,name,holdings:Number(holdings),alloc:parseFloat(alloc),yield:parseFloat(yieldPct),type,freq};
 });
 
 // ── TABLE ──
@@ -1045,7 +1153,7 @@ function download_mainTable() {
   var ws = XLSX.utils.aoa_to_sheet(rows);
   var wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Report');
-  XLSX.writeFile(wb, 'CommunityPortfolio_June13-September13_2026.xlsx');
+  XLSX.writeFile(wb, 'CommunityPortfolio_July11-September11_2026.xlsx');
 }
 </script>
 <script src="vendor/gsap.min.js"></script>
